@@ -3981,9 +3981,9 @@ var isExtraneousPopstateEvent = function isExtraneousPopstateEvent(event) {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-exports.saveStudent = exports.deleteStudent = undefined;
+exports.updateStudent = exports.updateCampus = exports.deleteStudent = exports.deleteCampus = exports.createStudent = exports.createCampus = exports.loadStudents = exports.loadCampuses = undefined;
 
 var _redux = __webpack_require__(34);
 
@@ -4011,100 +4011,153 @@ var DESTROY_STUDENT = 'DESTROY_STUDENT';
 var UPDATE_STUDENT = 'UPDATE_STUDENT';
 
 var campusesReducer = function campusesReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments[1];
 
-  switch (action.type) {
-    case SET_CAMPUSES:
-      state = action.campuses;
-      break;
-    case CREATE_CAMPUS:
-      state = [].concat(_toConsumableArray(state), [action.campus]);
-      break;
-    case DESTROY_CAMPUS:
-      state = state.filter(function (campus) {
-        return campus.id !== action.campus.id;
-      });
-      break;
-    case UPDATE_CAMPUS:
-      state = state.map(function (campus) {
-        return campus.id === action.campus.id ? action.campus : campus;
-      });
-      break;
-  }
-  return state;
+    switch (action.type) {
+        case SET_CAMPUSES:
+            state = action.campuses;
+            break;
+        case CREATE_CAMPUS:
+            state = [].concat(_toConsumableArray(state), [action.campus]);
+            break;
+        case DESTROY_CAMPUS:
+            state = state.filter(function (campus) {
+                return campus.id !== action.campus.id;
+            });
+            break;
+        case UPDATE_CAMPUS:
+            state = state.map(function (campus) {
+                return campus.id === action.campus.id ? action.campus : campus;
+            });
+            break;
+    }
+    return state;
 };
 
 var studentsReducer = function studentsReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments[1];
 
-  switch (action.type) {
-    case SET_STUDENTS:
-      state = action.students;
-      break;
-    case CREATE_STUDENT:
-      state = [].concat(_toConsumableArray(state), [action.student]);
-      break;
-    case DESTROY_STUDENT:
-      state = state.filter(function (student) {
-        return student.id !== action.student.id;
-      });
-      break;
-    case UPDATE_STUDENT:
-      state = state.map(function (student) {
-        return student.id === action.student.id ? action.student : student;
-      });
-      break;
-  }
-  return state;
+    switch (action.type) {
+        case SET_STUDENTS:
+            state = action.students;
+            break;
+        case CREATE_STUDENT:
+            state = [].concat(_toConsumableArray(state), [action.student]);
+            break;
+        case DESTROY_STUDENT:
+            state = state.filter(function (student) {
+                return student.id !== action.student.id;
+            });
+            break;
+        case UPDATE_STUDENT:
+            state = state.map(function (student) {
+                return student.id === action.student.id ? action.student : student;
+            });
+            break;
+    }
+    return state;
 };
 
 var reducer = (0, _redux.combineReducers)({
-  students: studentsReducer,
-  campuses: campusesReducer
+    students: studentsReducer,
+    campuses: campusesReducer
 });
 
 var store = (0, _redux.createStore)(reducer, (0, _redux.applyMiddleware)(_reduxThunk2.default));
 
-var deleteStudent = function deleteStudent(id, history) {
-  return function (dispatch) {
-    return _axios2.default.delete('/api/students/' + id).then(function (result) {
-      return result.data;
-    }).then(function () {
-      return dispatch({
-        type: 'DESTROY_STUDENT',
-        student: { id: id }
-      });
-    }).then(function () {
-      return history.push('/');
-    });
-  };
+var loadCampuses = function loadCampuses() {
+    return function (dispatch) {
+        return _axios2.default.get('/api/campuses').then(function (result) {
+            return result.data;
+        }).then(function (categories) {
+            return dispatch({
+                type: SET_CAMPUSES,
+                campuses: campuses
+            });
+        });
+    };
 };
 
-var saveStudent = function saveStudent(student, history) {
-  var id = student.id;
-
-  var method = id ? 'put' : 'post';
-  var action = id ? 'UPDATE_STUDENT' : 'CREATE_STUDENT';
-  var url = '/api/students/' + (id ? id : '');
-  return function (dispatch) {
-    return _axios2.default[method](url, student).then(function (result) {
-      return result.data;
-    }).then(function (student) {
-      return dispatch({
-        type: action,
-        student: student
-      });
-    }).then(function () {
-      return history.push('/');
-    });
-  };
+var loadStudents = function loadStudents() {
+    return function (dispatch) {
+        return _axios2.default.get('/api/students').then(function (result) {
+            return result.data;
+        }).then(function (categories) {
+            return dispatch({
+                type: SET_STUDENTS,
+                campuses: campuses
+            });
+        });
+    };
 };
+
+var createCampus = function createCampus(campus) {
+    return function (dispatch) {
+        return _axios2.default.post('/api/campuses').then(function (result) {
+            return result.data;
+        }).then(function (campus) {
+            return dispatch({
+                type: CREATE_CAMPUS,
+                campus: campus
+            });
+        });
+    };
+};
+
+var createStudent = function createStudent(student) {
+    return function (dispatch) {
+        return _axios2.default.post('/api/campuses/' + campus.id + '/students').then(function (result) {
+            return result.data;
+        }).then(function (student) {
+            return dispatch({
+                type: CREATE_STUDENT,
+                student: student
+            });
+        });
+    };
+};
+
+var deleteCampus = function deleteCampus(campus) {
+    return function (dispatch) {
+        return _axios2.default.delete('/api/campuses/' + campus.id).then(function (result) {
+            return result.data;
+        }).then(function () {
+            return dispatch({
+                type: DELETE_CAMPUS,
+                campus: campus
+            });
+        });
+    };
+};
+
+var deleteStudent = function deleteStudent(campus) {
+    return function (dispatch) {
+        return _axios2.default.delete('/api/campuses/' + student.categoryId + '/students/' + student.id).then(function (result) {
+            return result.data;
+        }).then(function () {
+            return dispatch({
+                type: DELETE_STUDENT,
+                student: student
+            });
+        });
+    };
+};
+
+var updateCampus = function updateCampus(campus) {};
+
+var updateStudent = function updateStudent(student) {};
 
 exports.default = store;
+exports.loadCampuses = loadCampuses;
+exports.loadStudents = loadStudents;
+exports.createCampus = createCampus;
+exports.createStudent = createStudent;
+exports.deleteCampus = deleteCampus;
 exports.deleteStudent = deleteStudent;
-exports.saveStudent = saveStudent;
+exports.updateCampus = updateCampus;
+exports.updateStudent = updateStudent;
 
 /***/ }),
 /* 56 */
