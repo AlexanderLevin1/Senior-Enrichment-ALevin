@@ -102,7 +102,31 @@ const createStudent = (student) => {
     }
 };
 
-const deleteCampus = (campus) => {
+const updateCampus = (campus, history) => {
+    return (dispatch) => {
+        return axios.put(`/api/campuses/${campus.id}`)
+        .then (result => result.data)
+        .then (campus => dispatch({
+            type: UPDATE_CAMPUS,
+            campus
+        }))
+        .then ( () => history.push('/'))
+    }
+};
+
+const updateStudent = (student, history) => {
+    return (dispatch) => {
+        return axios.put(`/api/campuses/${student.categoryId}/students/${student.id}`)
+        .then (result => result.data)
+        .then (student => dispatch({
+            type: UPDATE_STUDENT,
+            student
+        }))
+        .then ( () => history.push('/'))
+    }
+};
+
+const deleteCampus = (campus, history) => {
     return (dispatch) => {
         return axios.delete(`/api/campuses/${campus.id}`)
         .then (result => result.data)
@@ -110,10 +134,11 @@ const deleteCampus = (campus) => {
             type: DELETE_CAMPUS,
             campus
         }))
+        .then ( () => history.push('/'))
     }
 };
 
-const deleteStudent = (campus) => {
+const deleteStudent = (campus, history) => {
     return (dispatch) => {
         return axios.delete(`/api/campuses/${student.categoryId}/students/${student.id}`)
         .then (result => result.data)
@@ -121,15 +146,8 @@ const deleteStudent = (campus) => {
             type: DELETE_STUDENT,
             student
         }))
+        .then ( () => history.push('/'))
     }
-};
-
-const updateCampus = (campus) => {
-
-};
-
-const updateStudent = (student) => {
-
 };
 
 export default store;

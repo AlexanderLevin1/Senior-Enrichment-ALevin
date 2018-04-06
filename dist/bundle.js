@@ -4119,7 +4119,37 @@ var createStudent = function createStudent(student) {
     };
 };
 
-var deleteCampus = function deleteCampus(campus) {
+var updateCampus = function updateCampus(campus, history) {
+    return function (dispatch) {
+        return _axios2.default.put('/api/campuses/' + campus.id).then(function (result) {
+            return result.data;
+        }).then(function (campus) {
+            return dispatch({
+                type: UPDATE_CAMPUS,
+                campus: campus
+            });
+        }).then(function () {
+            return history.push('/');
+        });
+    };
+};
+
+var updateStudent = function updateStudent(student, history) {
+    return function (dispatch) {
+        return _axios2.default.put('/api/campuses/' + student.categoryId + '/students/' + student.id).then(function (result) {
+            return result.data;
+        }).then(function (student) {
+            return dispatch({
+                type: UPDATE_STUDENT,
+                student: student
+            });
+        }).then(function () {
+            return history.push('/');
+        });
+    };
+};
+
+var deleteCampus = function deleteCampus(campus, history) {
     return function (dispatch) {
         return _axios2.default.delete('/api/campuses/' + campus.id).then(function (result) {
             return result.data;
@@ -4128,11 +4158,13 @@ var deleteCampus = function deleteCampus(campus) {
                 type: DELETE_CAMPUS,
                 campus: campus
             });
+        }).then(function () {
+            return history.push('/');
         });
     };
 };
 
-var deleteStudent = function deleteStudent(campus) {
+var deleteStudent = function deleteStudent(campus, history) {
     return function (dispatch) {
         return _axios2.default.delete('/api/campuses/' + student.categoryId + '/students/' + student.id).then(function (result) {
             return result.data;
@@ -4141,13 +4173,11 @@ var deleteStudent = function deleteStudent(campus) {
                 type: DELETE_STUDENT,
                 student: student
             });
+        }).then(function () {
+            return history.push('/');
         });
     };
 };
-
-var updateCampus = function updateCampus(campus) {};
-
-var updateStudent = function updateStudent(student) {};
 
 exports.default = store;
 exports.loadCampuses = loadCampuses;
@@ -22831,7 +22861,7 @@ var App = function App() {
           _reactRouterDom.Switch,
           null,
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Students2.default }),
-          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/Campuses', component: _Campuses2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/campuses', component: _Campuses2.default }),
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/students/create', render: function render(_ref) {
               var history = _ref.history;
               return _react2.default.createElement(_StudentForm2.default, { history: history });
@@ -22849,8 +22879,6 @@ var App = function App() {
 
 // Redux Store
 
-
-var students = [{ id: 1, name: 'Monet Painter' }, { id: 2, name: 'Larry Elison' }];
 
 _axios2.default.get('/api/students').then(function (result) {
   return result.data;

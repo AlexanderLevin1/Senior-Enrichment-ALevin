@@ -19,7 +19,7 @@ const App = ()=> {
           <Nav />
           <Switch>
           <Route exact path='/' component={ Students } />
-          <Route exact path='/Campuses' component={ Campuses } />
+          <Route exact path='/campuses' component={ Campuses } />
           <Route exact path='/students/create' render={({ history })=> <StudentForm history={ history }/> } />
           <Route exact path='/students/:id' render={({ match, history })=> <StudentForm id={ match.params.id*1} history={ history }/> } />
           </Switch>
@@ -28,11 +28,6 @@ const App = ()=> {
     </Provider>
   );
 };
-
-const students = [
-  { id: 1, name: 'Monet Painter' },
-  { id: 2, name: 'Larry Elison' },
-];
 
 axios.get('/api/students')
   .then( result => result.data)

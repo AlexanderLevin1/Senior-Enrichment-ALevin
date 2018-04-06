@@ -5,6 +5,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+const { Campus, Student } = require('./db/models');
+
 app.use(require('body-parser').json());
 
 //2. dist
@@ -81,72 +83,7 @@ app.use((err, req, res, next) => {
     res.status(500).send(err);
 });
 
-//5. Port, sequelize, model & sync and seed
+//5. Port
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`listening on port ${port}`));
 
-const Sequelize = require('sequelize');
-const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/crud_db');
-
-const Campus = conn.define('student', {
-    name: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
-    },
-    imageURL: {
-        type: Sequelize.STRING,
-        isUrl: true,
-        defaultValue: true
-    },
-    description: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
-    }
-}
-);
-
-const Student = conn.define('student', {
-    firstName: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
-    },
-    lastName: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
-    },
-    email: {
-        type: Sequelize.STRING,
-        isEmail: true,
-        unique: true,
-        allowNull: false
-    },
-    gpa: {
-        type: Sequelize.RANGE(Sequelize.DECIMAL),
-        allowNull: false
-    }
-}, {
-        getterMethods: {
-            fullName() {
-                return this.firstName + ' ' + this.lastName
-            }
-        }
-    }
-);
-
-Student.belongsTo(Campus);
-
-conn.sync({ force: true })
-    .then(() => Promise.all([
-        Campus.create({ name: 'West' }),
-        Campus.create({ name: 'North' }),
-        Student.create({ name: 'Monet Painter' }),
-        Student.create({ name: 'Larry Elison' })
-    ]))
-    .then(([c1, c2, s1, s2]) => Promise.all([
-        s1.setCampus(c1),
-        s2.setCampus(c2)
-    ]));
