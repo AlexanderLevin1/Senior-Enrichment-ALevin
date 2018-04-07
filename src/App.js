@@ -1,41 +1,52 @@
-import React from 'react';
-import { Provider } from 'react-redux';
+import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Students from './Students';
-import StudentForm from './StudentForm';
-import Campuses from './Campuses';
+import { loadCampuses, loadStudents } from './store';
+
 import Nav from './Nav';
+import Home from './Home';
+import Campus from './Campus';
+import Campuses from './Campuses';
+import CampusCreate from './CampusCreate';
+import Student from './Student';
+import Students from './Students';
+import StudentCreate from './StudentCreate';
 
-// Redux Store
-import store from './store';
 
-const App = ()=> {
-  return (
-    <Provider store={ store }>
-      <Router>
-        <div>
-          <Nav />
-          <Switch>
-          <Route exact path='/' component={ Students } />
-          <Route exact path='/campuses' component={ Campuses } />
-          <Route exact path='/students/create' render={({ history })=> <StudentForm history={ history }/> } />
-          <Route exact path='/students/:id' render={({ match, history })=> <StudentForm id={ match.params.id*1} history={ history }/> } />
-          </Switch>
-        </div>
-      </Router>
-    </Provider>
-  );
+class App extends Component {
+    componentDidMount() {
+        this.props.loadCampuses();
+        this.props.loadStudents();
+    }
+
+    render() {
+        return (
+                <Router>
+                    <div>
+                        <Route render={({ location }) => <Nav path={location.pathname} />} />
+                        <Switch>
+                            <Route exact path='/' exact component={Home} />
+                            <Route exact path='/campuses' exact component={Campuses} />
+                            <Route exact path='/campuses/:id' exact render={({ match, history }) => <Campus id={match.params.id * 1} history={history} />} />
+                            <Route exact path='/campuses/create' exact render={({ history }) => <CampusCreate history={history} />} />
+                            <Route exact path='/campuses/:id/newStudent' exact render={({ history }) => <StudentCreate id={match.params.id * 1} history={history} />} />
+                            <Route exact path='/students' exact component={Students} />
+                            <Route exact path='/students/:id' exact render={({ match, history }) => <Student id={match.params.id * 1} history={history} />} />
+                        </Switch>
+                    </div>
+                </Router>
+        )
+    }
 };
 
-axios.get('/api/students')
-  .then( result => result.data)
-  .then( students => {
-    store.dispatch({
-      type: 'SET_STUDENTS',
-      students
-    });
-  });
-
-export default App;
+const mapDispatchToProps = (dispatch) => {
+    return {
+      loadCampuses: () => dispatch(loadCampuses()),
+      loadStudents: () => dispatch(loadStudents())
+    };
+  };
+  
+  export default connect(null, mapDispatchToProps)(App);

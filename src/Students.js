@@ -1,34 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import StudentList from './StudentList';
 
-
-const Students = ({ students, count })=> {
+const Students = () => {
     return (
-      <div>
-        <h2>Students { count }</h2>
-        <ul>
-        {
-          students.map( student => {
-            return (
-              <li key={ student.id }>
-                <Link to={`/students/${student.id}`}>
-                  { student.name }
-                </Link>
-              </li>
-            );
-          })
-        }
-        </ul>
-      </div>
-    );
-}
-
-const mapStateToProps = ({ students })=> {
-  return {
-    students,
-    count: students.length
-  };
+        <div>
+            <h1> Students </h1>
+            <StudentList />
+        </div>
+    )
 };
 
-export default connect(mapStateToProps)(Students);
+export default Students;

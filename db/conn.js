@@ -1,12 +1,4 @@
 const Sequelize = require('sequelize');
-const databaseURI = process.env.DATABASE_URL || 'postgres://localhost/crud_db';
-
-const conn = new Sequelize(databaseURI, {
-    define: {
-      timestamps: false,
-      underscored: true
-    },
-    logging: false
-  });
+const conn = new Sequelize( process.env.DATABASE_URL || 'postgres://localhost/senior_enrichment_db')
   
   module.exports = conn;

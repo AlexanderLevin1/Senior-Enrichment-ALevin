@@ -3,15 +3,17 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import axios from 'axios';
 import thunk from 'redux-thunk';
 
+// -------- ACTIONS ---------------
+
 const SET_CAMPUSES = 'SET_CAMPUSES';
 const CREATE_CAMPUS = 'CREATE_CAMPUS';
-const DESTROY_CAMPUS = 'DESTROY_CAMPUS';
-const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
+const DELETE_CAMPUS = 'DELETE_CAMPUS';
 
 const SET_STUDENTS = 'SET_STUDENTS';
 const CREATE_STUDENT = 'CREATE_STUDENT';
-const DESTROY_STUDENT = 'DESTROY_STUDENT';
-const UPDATE_STUDENT = 'UPDATE_STUDENT';
+const DELETE_STUDENT = 'DELETE_STUDENT';
+
+// --------- REDUCER ---------------
 
 const campusesReducer = (state = [], action) => {
     switch (action.type) {
@@ -21,12 +23,10 @@ const campusesReducer = (state = [], action) => {
         case CREATE_CAMPUS:
             state = [...state, action.campus];
             break;
-        case DESTROY_CAMPUS:
+        case DELETE_CAMPUS:
             state = state.filter(campus => campus.id !== action.campus.id);
             break;
-        case UPDATE_CAMPUS:
-            state = state.map(campus => campus.id === action.campus.id ? action.campus : campus);
-            break;
+        default:
     }
     return state;
 };
@@ -39,28 +39,31 @@ const studentsReducer = (state = [], action) => {
         case CREATE_STUDENT:
             state = [...state, action.student];
             break;
-        case DESTROY_STUDENT:
+        case DELETE_STUDENT:
             state = state.filter(student => student.id !== action.student.id);
             break;
-        case UPDATE_STUDENT:
-            state = state.map(student => student.id === action.student.id ? action.student : student);
+        case DELETE_CAMPUS:
+            state = state.filter(student => student.campus_id !== action.campus.id);
             break;
+        default:
     }
     return state;
 };
 
+// --------- COMBINE REDUCERS --------------
+
 const reducer = combineReducers({
-    students: studentsReducer,
-    campuses: campusesReducer
+    campuses: campusesReducer,
+    students: studentsReducer
 });
 
-const store = createStore(reducer, applyMiddleware(thunk));
+// ---------- THUNKS ---------------------
 
 const loadCampuses = () => {
     return (dispatch) => {
         return axios.get('/api/campuses')
             .then(result => result.data)
-            .then(categories => dispatch({
+            .then(campuses => dispatch({
                 type: SET_CAMPUSES,
                 campuses
             })
@@ -72,9 +75,9 @@ const loadStudents = () => {
     return (dispatch) => {
         return axios.get(`/api/students`)
             .then(result => result.data)
-            .then(categories => dispatch({
+            .then(students => dispatch({
                 type: SET_STUDENTS,
-                campuses
+                students
             })
             )
     }
@@ -83,72 +86,55 @@ const loadStudents = () => {
 const createCampus = (campus) => {
     return (dispatch) => {
         return axios.post(`/api/campuses`)
-        .then (result => result.data)
-        .then (campus => dispatch({
-            type: CREATE_CAMPUS,
-            campus
-        }))
+            .then(result => result.data)
+            .then(campus => dispatch({
+                type: CREATE_CAMPUS,
+                campus
+            }))
     }
 };
 
 const createStudent = (student) => {
     return (dispatch) => {
         return axios.post(`/api/campuses/${campus.id}/students`)
-        .then (result => result.data)
-        .then (student => dispatch({
-            type: CREATE_STUDENT,
-            student
-        }))
-    }
-};
-
-const updateCampus = (campus, history) => {
-    return (dispatch) => {
-        return axios.put(`/api/campuses/${campus.id}`)
-        .then (result => result.data)
-        .then (campus => dispatch({
-            type: UPDATE_CAMPUS,
-            campus
-        }))
-        .then ( () => history.push('/'))
-    }
-};
-
-const updateStudent = (student, history) => {
-    return (dispatch) => {
-        return axios.put(`/api/campuses/${student.categoryId}/students/${student.id}`)
-        .then (result => result.data)
-        .then (student => dispatch({
-            type: UPDATE_STUDENT,
-            student
-        }))
-        .then ( () => history.push('/'))
+            .then(result => result.data)
+            .then(student => dispatch({
+                type: CREATE_STUDENT,
+                student
+            }))
+            .then(() => {
+                history.pushState('/students')
+            })
     }
 };
 
 const deleteCampus = (campus, history) => {
     return (dispatch) => {
         return axios.delete(`/api/campuses/${campus.id}`)
-        .then (result => result.data)
-        .then ( () => dispatch({
-            type: DELETE_CAMPUS,
-            campus
-        }))
-        .then ( () => history.push('/'))
+            .then(result => result.data)
+            .then(() => dispatch({
+                type: DELETE_CAMPUS,
+                campus
+            }))
+            .then(() => {
+                history.push('/campuses');
+            })
     }
 };
 
 const deleteStudent = (campus, history) => {
     return (dispatch) => {
         return axios.delete(`/api/campuses/${student.categoryId}/students/${student.id}`)
-        .then (result => result.data)
-        .then ( () => dispatch({
-            type: DELETE_STUDENT,
-            student
-        }))
-        .then ( () => history.push('/'))
+            .then(result => result.data)
+            .then(() => dispatch({
+                type: DELETE_STUDENT,
+                student
+            }))
+            .then(() => history.push('/students'))
     }
 };
 
+const store = createStore(reducer, applyMiddleware(thunk));
+
 export default store;
-export { loadCampuses, loadStudents, createCampus, createStudent, deleteCampus, deleteStudent, updateCampus, updateStudent };
+export { loadCampuses, loadStudents, createCampus, createStudent, deleteCampus, deleteStudent }

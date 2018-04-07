@@ -1,28 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-const Nav = ({ studentCount, universityCount})=> {
-  return (
-    <ul>
-      <li>
-        <Link to='/'>Students ({ studentCount })</Link>
-      </li>
-      <li>
-        <Link to='/campuses'>campuses ({ campusCount })</Link>
-      </li>
-      <li>
-        <Link to='/students/create'>Create A Student</Link>
-      </li>
-    </ul>
-  );
+const Nav = ({ path, students, campuses }) => {
+    return (
+        <div>
+            <nav className="navbar navbar-expand-md navbar-light bg-light">
+                <ul>
+                    {
+                        path === '/' ? <li>Home</li> : <li><Link to="/">Home</Link></li>
+                    }
+                    {
+                        path === '/students' ? <li>All Students</li> : <li><Link to="/students">All Students</Link> </li>
+                    }
+                    {
+                        path === '/campuses' ? <li>All Campuses</li> : <li><Link to="/campuses">All Campuses</Link> </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    );
 };
 
-const mapStateToProps = ({ students, campuses })=> {
-  return {
-    studentCount: students.length,
-    campusCount: campuses.length
-  };
+const mapStateToProps = ({ students, campuses }) => {
+    return { students, campuses };
 };
 
 export default connect(mapStateToProps)(Nav);
