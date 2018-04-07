@@ -37,8 +37,11 @@ class CampusCreate extends Component {
             <div>
                 <h2>Add Campus</h2>
                 <form>
+                Name:
                     <input name="name" onChange={onChangeForm} />
+                imageURL:
                     <input name="imageURL" onChange={onChangeForm} />
+                Description:
                     <input name="description" onChange={onChangeForm} />
                 </form>
                 <button onClick={onCreateCampus}>Add Campus</button>

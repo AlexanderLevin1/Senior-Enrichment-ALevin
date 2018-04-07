@@ -13,6 +13,7 @@ const StudentList = ({ students }) => {
                             <li key={student.id}>
                                 <Link to={`/students/${student.id}`}>
                                     {student.fullName}
+                                    <img className="student-image" src={student.imageURL} />
                                 </Link>
                             </li>
                         );

@@ -19,12 +19,14 @@ class Campus extends Component {
         const { campus, campus_id } = this.props;
         const { onDeleteCampus } = this;
         return (
+            <div className="container-fluid">
             <div>
                 <h2>Campus - {campus && campus.name}</h2>
-                <img className="single-campus-image" src={campus.image} />
-                <p><Link to={`/campuses/${campus_id}/newStudent`}>Add Student</Link></p>
+                <img className="single-campus-image" src={campus && campus.imageURL} />
+            </div>
+                <p><Link to={`/newStudent`}>Add Student</Link></p>
                 <StudentList id={campus_id} />
-                <button onClick={onDeleteCampus}>Delete Campus</button>
+                <button className="btn btn-dfault btn-xs" onClick={onDeleteCampus}>Delete Campus</button>
             </div>
         )
     }

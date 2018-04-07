@@ -43,10 +43,15 @@ class StudentCreate extends Component {
       <div>
         <h2>New Student</h2>
         <form>
+        firstName
           <input name="firstName" onChange={onChangeForm} />
+        lastName
           <input name="lastName" onChange={onChangeForm} />
+        email
           <input name="email" onChange={onChangeForm} />
+        imageURL
           <input name="imageURL" onChange={onChangeForm} />
+        gpa
           <input name="gpa" onChange={onChangeForm} />
         </form>
         <button onClick={onCreateStudent}>Add Student</button>
@@ -55,9 +60,9 @@ class StudentCreate extends Component {
   }
 };
 
-const mapStateToProps = ({ campus }, { id }) => {
+const mapStateToProps = ({ campuses }, { id }) => {
   return {
-    campus: Campuses.find(campus => campus.id === id)
+    campus: campuses.find(campus => campus.id === id)
   }
 };
 

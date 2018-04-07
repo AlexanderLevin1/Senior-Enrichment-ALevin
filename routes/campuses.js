@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    if (req.body.imageURL === '') req.body.imageURL = '../vendor/images/upennasdefault.jpg'
+    if (req.body.imageURL === '') req.body.imageURL = '../vendor/upennasdefault.jpg'
     Campus.create(req.body)
         .then(campus => res.send(campus))
         .catch(next);

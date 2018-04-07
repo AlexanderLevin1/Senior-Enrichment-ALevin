@@ -27,7 +27,7 @@ const Student = conn.define('student', {
     },
     imageURL: {
         type: Sequelize.STRING,
-        defaultValue: '/images/default-photo.jpg'
+        defaultValue: '/vendor/emptyimage.png'
     },
     gpa: {
         type: Sequelize.FLOAT,

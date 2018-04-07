@@ -11,7 +11,7 @@ app.use(require('body-parser').json());
 
 //2. dist and vendor
 app.use('/dist', express.static(path.join(__dirname, 'dist')));
-app.use('/vendor', express.static(path.join(__dirname, 'public')));
+app.use('/vendor', express.static(path.join(__dirname, 'images/campuses')));
 //3. sendFile
 app.get('/', (req, res, next) => {
     res.sendFile(path.join(__dirname, 'index.html'))

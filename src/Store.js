@@ -96,14 +96,14 @@ const createCampus = (campus) => {
 
 const createStudent = (student) => {
     return (dispatch) => {
-        return axios.post(`/api/campuses/${campus.id}/students`)
+        return axios.post(`/api/students`)
             .then(result => result.data)
             .then(student => dispatch({
                 type: CREATE_STUDENT,
                 student
             }))
             .then(() => {
-                history.pushState('/students')
+                history.push('/students')
             })
     }
 };

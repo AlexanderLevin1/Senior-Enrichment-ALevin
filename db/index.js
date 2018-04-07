@@ -7,7 +7,7 @@ const avatar = require('cartoon-avatar');
 
 Student.belongsTo(Campus);
 
-const campusPhotos = ['../vendor/images/campuses/Cam.jpg', '../vendor/images/campuses/Ox.jpg', '../vendor/images/campuses/apple-campus.jpg', '../vendor/images/campuses/1trade.jpg', ]
+const campusPhotos = ['../vendor/Cam.jpg', '../vendor/Ox.jpg', '../vendor/apple-campus.jpg', '../vendor/1trade.jpg', ]
 
 const sync = () => {
     return conn.sync({ force: true })
