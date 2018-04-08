@@ -42,7 +42,7 @@ class StudentCreate extends Component {
     return (
       <div>
         <h2>New Student</h2>
-        <form>
+        <form className= "form-group">
         firstName
           <input name="firstName" onChange={onChangeForm} />
         lastName

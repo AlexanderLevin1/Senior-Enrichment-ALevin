@@ -18,9 +18,13 @@ class Student extends Component {
         const { student } = this.props;
         const { onDeleteStudent } = this;
         return (
+            <div className="student">
             <div>
             <h2>Student - { student && student.name }</h2>
-            <button onClick={onDeleteStudent}> Delete Student </button>
+            <img src={student.imageURL}/>
+            </div>
+            <th></th>
+            <button className="btn btn-default btn-xs" onClick={onDeleteStudent}> Delete Student </button>
             </div>
         )
     }

@@ -922,7 +922,7 @@ var loadStudents = function loadStudents() {
 
 var createCampus = function createCampus(campus) {
     return function (dispatch) {
-        return _axios2.default.post('/api/campuses').then(function (result) {
+        return _axios2.default.post('/api/campuses', campus).then(function (result) {
             return result.data;
         }).then(function (campus) {
             return dispatch({
@@ -933,9 +933,9 @@ var createCampus = function createCampus(campus) {
     };
 };
 
-var createStudent = function createStudent(student) {
+var createStudent = function createStudent(student, history) {
     return function (dispatch) {
-        return _axios2.default.post('/api/students').then(function (result) {
+        return _axios2.default.post('/api/students', student).then(function (result) {
             return result.data;
         }).then(function (student) {
             return dispatch({
@@ -963,9 +963,9 @@ var deleteCampus = function deleteCampus(campus, history) {
     };
 };
 
-var deleteStudent = function deleteStudent(campus, history) {
+var deleteStudent = function deleteStudent(student, history) {
     return function (dispatch) {
-        return _axios2.default.delete('/api/campuses/' + student.categoryId + '/students/' + student.id).then(function (result) {
+        return _axios2.default.delete('/api/students/' + student.id).then(function (result) {
             return result.data;
         }).then(function () {
             return dispatch({
@@ -990,6 +990,65 @@ exports.deleteStudent = deleteStudent;
 
 /***/ }),
 /* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__ = __webpack_require__(113);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserRouter", function() { return __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(115);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "HashRouter", function() { return __WEBPACK_IMPORTED_MODULE_1__HashRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(52);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return __WEBPACK_IMPORTED_MODULE_2__Link__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(117);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MemoryRouter", function() { return __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(120);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "NavLink", function() { return __WEBPACK_IMPORTED_MODULE_4__NavLink__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(123);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Prompt", function() { return __WEBPACK_IMPORTED_MODULE_5__Prompt__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(125);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(53);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(24);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return __WEBPACK_IMPORTED_MODULE_8__Router__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(131);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "StaticRouter", function() { return __WEBPACK_IMPORTED_MODULE_9__StaticRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(133);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(135);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "matchPath", function() { return __WEBPACK_IMPORTED_MODULE_11__matchPath__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(136);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_12__withRouter__["a"]; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1086,7 +1145,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1144,65 +1203,6 @@ function invariant(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__ = __webpack_require__(113);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserRouter", function() { return __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(115);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "HashRouter", function() { return __WEBPACK_IMPORTED_MODULE_1__HashRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(52);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return __WEBPACK_IMPORTED_MODULE_2__Link__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(117);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MemoryRouter", function() { return __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(120);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "NavLink", function() { return __WEBPACK_IMPORTED_MODULE_4__NavLink__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(123);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Prompt", function() { return __WEBPACK_IMPORTED_MODULE_5__Prompt__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(125);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(53);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(24);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return __WEBPACK_IMPORTED_MODULE_8__Router__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(131);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "StaticRouter", function() { return __WEBPACK_IMPORTED_MODULE_9__StaticRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(133);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(135);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "matchPath", function() { return __WEBPACK_IMPORTED_MODULE_11__matchPath__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(136);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_12__withRouter__["a"]; });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /***/ }),
 /* 12 */
@@ -1526,7 +1526,7 @@ var locationsAreEqual = function locationsAreEqual(a, b) {
 
 
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(10);
+  var invariant = __webpack_require__(11);
   var warning = __webpack_require__(15);
   var ReactPropTypesSecret = __webpack_require__(18);
   var loggedTypeFailures = {};
@@ -4179,9 +4179,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(6);
 
-var _reactRouterDom = __webpack_require__(11);
+var _reactRouterDom = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var StudentList = function StudentList(_ref) {
     var students = _ref.students;
@@ -4195,13 +4197,21 @@ var StudentList = function StudentList(_ref) {
             null,
             students && students.map(function (student) {
                 return _react2.default.createElement(
-                    'li',
-                    { key: student.id },
+                    'div',
+                    _defineProperty({ className: 'row' }, 'className', 'col-xs-4'),
                     _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: '/students/' + student.id },
-                        student.fullName,
-                        _react2.default.createElement('img', { className: 'student-image', src: student.imageURL })
+                        'ul',
+                        { key: student.id },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'thumbnail', width: 300 },
+                            _react2.default.createElement(
+                                _reactRouterDom.Link,
+                                { to: '/students/' + student.id },
+                                student.fullName,
+                                _react2.default.createElement('img', { className: 'student-thumbnail', src: student.imageURL, width: 100 })
+                            )
+                        )
                     )
                 );
             })
@@ -4270,7 +4280,7 @@ var root = document.getElementById('root'); // RENDER
  * LICENSE file in the root directory of this source tree.
  */
 
-var m=__webpack_require__(9),n=__webpack_require__(14),p=__webpack_require__(7),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.portal"):60106,u=q?Symbol["for"]("react.fragment"):60107,v=q?Symbol["for"]("react.strict_mode"):60108,w=q?Symbol["for"]("react.provider"):60109,x=q?Symbol["for"]("react.context"):60110,y=q?Symbol["for"]("react.async_mode"):60111,z=q?Symbol["for"]("react.forward_ref"):60112,A="function"===
+var m=__webpack_require__(10),n=__webpack_require__(14),p=__webpack_require__(7),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.portal"):60106,u=q?Symbol["for"]("react.fragment"):60107,v=q?Symbol["for"]("react.strict_mode"):60108,w=q?Symbol["for"]("react.provider"):60109,x=q?Symbol["for"]("react.context"):60110,y=q?Symbol["for"]("react.async_mode"):60111,z=q?Symbol["for"]("react.forward_ref"):60112,A="function"===
 typeof Symbol&&Symbol.iterator;function B(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var C={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function D(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||C}D.prototype.isReactComponent={};D.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?B("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};D.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};function E(){}
 E.prototype=D.prototype;function F(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||C}var G=F.prototype=new E;G.constructor=F;m(G,D.prototype);G.isPureReactComponent=!0;var H={current:null},I=Object.prototype.hasOwnProperty,J={key:!0,ref:!0,__self:!0,__source:!0};
@@ -4307,9 +4317,9 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(9);
+var _assign = __webpack_require__(10);
 var emptyObject = __webpack_require__(14);
-var invariant = __webpack_require__(10);
+var invariant = __webpack_require__(11);
 var warning = __webpack_require__(15);
 var emptyFunction = __webpack_require__(7);
 var checkPropTypes = __webpack_require__(17);
@@ -5765,7 +5775,7 @@ if (process.env.NODE_ENV === 'production') {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var ba=__webpack_require__(0),m=__webpack_require__(28),A=__webpack_require__(9),C=__webpack_require__(7),ea=__webpack_require__(29),fa=__webpack_require__(30),ha=__webpack_require__(31),ja=__webpack_require__(14);
+var ba=__webpack_require__(0),m=__webpack_require__(28),A=__webpack_require__(10),C=__webpack_require__(7),ea=__webpack_require__(29),fa=__webpack_require__(30),ha=__webpack_require__(31),ja=__webpack_require__(14);
 function D(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}ba?void 0:D("227");
 function ka(a,b,c,d,e,f,h,g,k){this._hasCaughtError=!1;this._caughtError=null;var v=Array.prototype.slice.call(arguments,3);try{b.apply(c,v)}catch(l){this._caughtError=l,this._hasCaughtError=!0}}
 var E={_caughtError:null,_hasCaughtError:!1,_rethrowError:null,_hasRethrowError:!1,invokeGuardedCallback:function(a,b,c,d,e,f,h,g,k){ka.apply(E,arguments)},invokeGuardedCallbackAndCatchFirstError:function(a,b,c,d,e,f,h,g,k){E.invokeGuardedCallback.apply(this,arguments);if(E.hasCaughtError()){var v=E.clearCaughtError();E._hasRethrowError||(E._hasRethrowError=!0,E._rethrowError=v)}},rethrowCaughtError:function(){return ma.apply(E,arguments)},hasCaughtError:function(){return E._hasCaughtError},clearCaughtError:function(){if(E._hasCaughtError){var a=
@@ -6079,10 +6089,10 @@ if (process.env.NODE_ENV !== "production") {
 'use strict';
 
 var React = __webpack_require__(0);
-var invariant = __webpack_require__(10);
+var invariant = __webpack_require__(11);
 var warning = __webpack_require__(15);
 var ExecutionEnvironment = __webpack_require__(28);
-var _assign = __webpack_require__(9);
+var _assign = __webpack_require__(10);
 var emptyFunction = __webpack_require__(7);
 var checkPropTypes = __webpack_require__(17);
 var getActiveElement = __webpack_require__(29);
@@ -22945,9 +22955,9 @@ function createProvider() {
 
 
 var emptyFunction = __webpack_require__(7);
-var invariant = __webpack_require__(10);
+var invariant = __webpack_require__(11);
 var warning = __webpack_require__(15);
-var assign = __webpack_require__(9);
+var assign = __webpack_require__(10);
 
 var ReactPropTypesSecret = __webpack_require__(18);
 var checkPropTypes = __webpack_require__(17);
@@ -23495,7 +23505,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 var emptyFunction = __webpack_require__(7);
-var invariant = __webpack_require__(10);
+var invariant = __webpack_require__(11);
 var ReactPropTypesSecret = __webpack_require__(18);
 
 module.exports = function() {
@@ -24624,7 +24634,7 @@ var _axios2 = _interopRequireDefault(_axios);
 
 var _reactRedux = __webpack_require__(6);
 
-var _reactRouterDom = __webpack_require__(11);
+var _reactRouterDom = __webpack_require__(9);
 
 var _store = __webpack_require__(8);
 
@@ -28637,7 +28647,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(6);
 
-var _reactRouterDom = __webpack_require__(11);
+var _reactRouterDom = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28647,54 +28657,58 @@ var Nav = function Nav(_ref) {
         campuses = _ref.campuses;
 
     return _react2.default.createElement(
-        'div',
-        null,
+        'nav',
+        { className: 'navbar navbar-expand-lg navbar-light bg-light' },
         _react2.default.createElement(
-            'nav',
-            { className: 'navbar navbar-expand-md navbar-light bg-light' },
+            'div',
+            { className: 'container' },
             _react2.default.createElement(
-                'ul',
-                null,
-                path === '/' ? _react2.default.createElement(
-                    'li',
+                'div',
+                { className: 'navbar-header' },
+                _react2.default.createElement(
+                    'ul',
                     null,
-                    'Home'
-                ) : _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: '/' },
+                    path === '/' ? _react2.default.createElement(
+                        'li',
+                        null,
                         'Home'
-                    )
-                ),
-                path === '/students' ? _react2.default.createElement(
-                    'li',
-                    null,
-                    'All Students'
-                ) : _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: '/students' },
+                    ) : _react2.default.createElement(
+                        'li',
+                        null,
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: '/' },
+                            'Home'
+                        )
+                    ),
+                    path === '/students' ? _react2.default.createElement(
+                        'li',
+                        null,
                         'All Students'
+                    ) : _react2.default.createElement(
+                        'li',
+                        null,
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: '/students' },
+                            'All Students'
+                        ),
+                        ' '
                     ),
-                    ' '
-                ),
-                path === '/campuses' ? _react2.default.createElement(
-                    'li',
-                    null,
-                    'All Campuses'
-                ) : _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: '/campuses' },
+                    path === '/campuses' ? _react2.default.createElement(
+                        'li',
+                        null,
                         'All Campuses'
-                    ),
-                    ' '
+                    ) : _react2.default.createElement(
+                        'li',
+                        null,
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: '/campuses' },
+                            'All Campuses'
+                        ),
+                        ' '
+                    )
                 )
             )
         )
@@ -28729,17 +28743,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Home = function Home() {
     return _react2.default.createElement(
-        'div',
-        null,
+        "div",
+        { className: "container text-center" },
         _react2.default.createElement(
-            'h1',
+            "h1",
             null,
-            ' Interplanetary Academy of Javascript '
+            " Margaret Hamilton Interplanetary Academy of Javascript "
         ),
         _react2.default.createElement(
-            'h2',
+            "h2",
             null,
-            ' Welcome to our Wonderful World of Jiving Javascript! '
+            " Welcome to our Wonderful World of Jiving Javascript! "
         )
     );
 };
@@ -28765,7 +28779,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(6);
 
-var _reactRouterDom = __webpack_require__(11);
+var _reactRouterDom = __webpack_require__(9);
 
 var _store = __webpack_require__(8);
 
@@ -28815,27 +28829,32 @@ var Campus = function (_Component) {
                     null,
                     _react2.default.createElement(
                         'h2',
-                        null,
+                        { className: 'text-center' },
                         'Campus - ',
                         campus && campus.name
                     ),
-                    _react2.default.createElement('img', { className: 'single-campus-image', src: campus && campus.imageURL })
+                    _react2.default.createElement('img', { className: 'image-center', src: campus && campus.imageURL })
                 ),
                 _react2.default.createElement(
                     'p',
                     null,
                     _react2.default.createElement(
                         _reactRouterDom.Link,
-                        { to: '/newStudent' },
+                        { className: 'btn btn-default', to: '/newStudent' },
                         'Add Student'
                     )
                 ),
-                _react2.default.createElement(_StudentList2.default, { id: campus_id }),
                 _react2.default.createElement(
                     'button',
-                    { className: 'btn btn-dfault btn-xs', onClick: onDeleteCampus },
+                    { className: 'btn btn-default btn-xs', onClick: onDeleteCampus },
                     'Delete Campus'
-                )
+                ),
+                _react2.default.createElement(
+                    'h4',
+                    null,
+                    ' Current Students '
+                ),
+                _react2.default.createElement(_StudentList2.default, { id: campus_id })
             );
         }
     }]);
@@ -28888,7 +28907,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(6);
 
-var _reactRouterDom = __webpack_require__(11);
+var _reactRouterDom = __webpack_require__(9);
 
 var _store = __webpack_require__(8);
 
@@ -28930,7 +28949,7 @@ var Campuses = function Campuses(_ref) {
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/campuses/' + campus.id },
-            _react2.default.createElement('img', { className: 'campus-image', src: campus.imageURL })
+            _react2.default.createElement('img', { className: 'campus-image', src: campus.imageURL, width: 300 })
           ),
           _react2.default.createElement('button', { className: 'remove-button', onClick: function onClick() {
               return (0, _store.deleteCampus)(campus);
@@ -29135,16 +29154,22 @@ var Student = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'student' },
                 _react2.default.createElement(
-                    'h2',
+                    'div',
                     null,
-                    'Student - ',
-                    student && student.name
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Student - ',
+                        student && student.name
+                    ),
+                    _react2.default.createElement('img', { src: student.imageURL })
                 ),
+                _react2.default.createElement('th', null),
                 _react2.default.createElement(
                     'button',
-                    { onClick: onDeleteStudent },
+                    { className: 'btn btn-default btn-xs', onClick: onDeleteStudent },
                     ' Delete Student '
                 )
             );
@@ -29198,7 +29223,7 @@ var _StudentList = __webpack_require__(56);
 
 var _StudentList2 = _interopRequireDefault(_StudentList);
 
-var _reactRouterDom = __webpack_require__(11);
+var _reactRouterDom = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29216,7 +29241,7 @@ var Students = function Students() {
             null,
             _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: '/newStudent' },
+                { to: '/newStudent', className: 'btn btn-defaul btnd-xs' },
                 'Add Student'
             )
         ),
@@ -29322,7 +29347,7 @@ var StudentCreate = function (_Component) {
         ),
         _react2.default.createElement(
           'form',
-          null,
+          { className: 'form-group' },
           'firstName',
           _react2.default.createElement('input', { name: 'firstName', onChange: onChangeForm }),
           'lastName',

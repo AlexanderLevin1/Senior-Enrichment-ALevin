@@ -16,7 +16,7 @@ const Campuses = ({ campuses }) => {
               <div key={campus.id} className="col-xs-4">
                 <h3 className="campus-name">{campus.name}</h3>
                 <Link to={`/campuses/${campus.id}`}>
-                  <img className="campus-image" src={campus.imageURL} />
+                  <img className="campus-image" src={campus.imageURL} width = {300}/>
                 </Link>
                 <button className="remove-button" onClick={() => deleteCampus(campus)}>
                 </button>

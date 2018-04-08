@@ -9,7 +9,7 @@ router.get('/', (req, res, next) => {
 
 
 router.post('/', (req, res, next) => {
-    if (req.body.imageURL === '') req.body.imageURL ='../vendor/images/emptyImage.png'
+    // if (req.body.imageURL === '') req.body.imageURL ='../vendor/images/emptyImage.png'
     Student.create(req.body)
         .then(student => res.send(student))
         .catch(next);
@@ -29,7 +29,6 @@ router.put('/:id', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
     Student.findOne({
         where: {
-            campusId: req.params.campusId,
             id: req.params.id
         }
     })

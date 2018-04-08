@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 
 const Nav = ({ path, students, campuses }) => {
     return (
-        <div>
-            <nav className="navbar navbar-expand-md navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <div className="container">
+                <div className="navbar-header">
                 <ul>
                     {
                         path === '/' ? <li>Home</li> : <li><Link to="/">Home</Link></li>
@@ -17,8 +18,9 @@ const Nav = ({ path, students, campuses }) => {
                         path === '/campuses' ? <li>All Campuses</li> : <li><Link to="/campuses">All Campuses</Link> </li>
                     }
                 </ul>
-            </nav>
-        </div>
+            </div>
+                </div>
+            </nav >
     );
 };
 

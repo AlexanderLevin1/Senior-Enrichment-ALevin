@@ -21,12 +21,14 @@ class Campus extends Component {
         return (
             <div className="container-fluid">
             <div>
-                <h2>Campus - {campus && campus.name}</h2>
-                <img className="single-campus-image" src={campus && campus.imageURL} />
+                <h2 className="text-center">Campus - {campus && campus.name}</h2>
+                <img className="image-center" src={campus && campus.imageURL} />
             </div>
-                <p><Link to={`/newStudent`}>Add Student</Link></p>
+                <p><Link className="btn btn-default" to={`/newStudent`}>Add Student</Link></p>
+                <button className="btn btn-default btn-xs" onClick={onDeleteCampus}>Delete Campus</button>
+                <h4> Current Students </h4>
+        {/* providing all students, fix */}
                 <StudentList id={campus_id} />
-                <button className="btn btn-dfault btn-xs" onClick={onDeleteCampus}>Delete Campus</button>
             </div>
         )
     }

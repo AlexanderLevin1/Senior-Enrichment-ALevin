@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 
 const SET_CAMPUSES = 'SET_CAMPUSES';
 const CREATE_CAMPUS = 'CREATE_CAMPUS';
+const EDIT_CAMPUS = 'EDIT_CAMPUS';
 const DELETE_CAMPUS = 'DELETE_CAMPUS';
 
 const SET_STUDENTS = 'SET_STUDENTS';
@@ -85,7 +86,7 @@ const loadStudents = () => {
 
 const createCampus = (campus) => {
     return (dispatch) => {
-        return axios.post(`/api/campuses`)
+        return axios.post(`/api/campuses`, campus)
             .then(result => result.data)
             .then(campus => dispatch({
                 type: CREATE_CAMPUS,
@@ -94,9 +95,9 @@ const createCampus = (campus) => {
     }
 };
 
-const createStudent = (student) => {
+const createStudent = (student, history) => {
     return (dispatch) => {
-        return axios.post(`/api/students`)
+        return axios.post(`/api/students`, student)
             .then(result => result.data)
             .then(student => dispatch({
                 type: CREATE_STUDENT,
@@ -122,9 +123,12 @@ const deleteCampus = (campus, history) => {
     }
 };
 
-const deleteStudent = (campus, history) => {
+/* editCampus
+editStudent */
+
+const deleteStudent = (student, history) => {
     return (dispatch) => {
-        return axios.delete(`/api/campuses/${student.categoryId}/students/${student.id}`)
+        return axios.delete(`/api/students/${student.id}`)
             .then(result => result.data)
             .then(() => dispatch({
                 type: DELETE_STUDENT,
