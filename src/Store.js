@@ -46,7 +46,7 @@ const studentsReducer = (state = [], action) => {
         case CREATE_STUDENT:
             state = [...state, action.student];
             break;
-        case DELETE_STUDENT:
+        case UPDATE_STUDENT:
             state = state.map(student => {
                 return student.id === action.student.id ? action.student : student;
             });
@@ -170,7 +170,9 @@ const deleteStudent = (student, history) => {
                 type: DELETE_STUDENT,
                 student
             }))
-            .then(() => history.push('/students'))
+            .then(() => {
+                history.push('/students')
+        })
     }
 };
 

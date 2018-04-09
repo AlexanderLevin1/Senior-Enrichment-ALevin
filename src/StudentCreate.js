@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { createStudent, updateStudent } from './store';
 
 class StudentCreate extends Component {
-  constructor({student}) {
+  constructor({ student }) {
     super();
     this.state = {
       firstName: !student ? '' : student.firstName,
-      lastName: ! student ? '' : student.lastName,
+      lastName: !student ? '' : student.lastName,
       email: !student ? '' : student.lastName,
       imageURL: !student ? '' : imageURL,
       gpa: !student ? '' : 0
@@ -25,7 +25,7 @@ class StudentCreate extends Component {
   }
 
   onCreateStudent(ev) {
-    const { campus } = this.props;
+    const { student, campus } = this.props;
     const { firstName, lastName, email, imageURL, gpa } = this.state;
     ev.preventDefault;
     this.props.createStudent({
@@ -43,40 +43,59 @@ class StudentCreate extends Component {
     const { student } = this.props;
     ev.preventDefault();
     this.props.updateStudent({ firstName, lastName, email, imageURL, gpa }, student.id);
-};
+  };
 
   render() {
     const { onCreateStudent, onChangeForm, onUpdateStudent } = this;
+    const { student } = this.props;
+    const { firstName, lastName, email, imageURL, gpa } = this.state;
     return (
-      <div>
-        <h2>New Student</h2>
-        <form className= "form-group">
-        firstName
-          <input name="firstName" onChange={onChangeForm} />
-        lastName
-          <input name="lastName" onChange={onChangeForm} />
-        email
-          <input name="email" onChange={onChangeForm} />
-        imageURL
-          <input name="imageURL" onChange={onChangeForm} />
-        gpa
-          <input name="gpa" onChange={onChangeForm} />
+      <div className="default-margins">
+        <h2>{!student ? ('Add Student') : (`Edit ${student.fullName}`)}</h2>
+        <form className="margin-top-10" display="table">
+          <div>
+            <label display="table-cell">
+              firstName:
+        </label>
+            <input name="firstName" onChange={onChangeForm} value={firstName} display="table" />
+          </div>
+          <div>
+            <label display="table-cell">
+              lastName:
+          </label>
+            <input name="lastName" onChange={onChangeForm} value={lastName} display="table" />
+          </div>
+          <div>
+            email:
+          <input name="email" onChange={onChangeForm} value={email} />
+          </div>
+          <div>
+            imageURL:
+          <input name="imageURL" onChange={onChangeForm} value={imageURL} />
+          </div>
+          <div>
+            gpa:
+          <input name="gpa" onChange={onChangeForm} value={gpa} />
+          </div>
         </form>
-        <button onClick={onCreateStudent}>Add Student</button>
+        <button onClick={!student ? onCreateStudent : onUpdateCampus}>
+          {!student ? ('Add') : ('Edit')} Student
+        </button>
       </div>
     )
   }
 };
 
-const mapStateToProps = ({ campuses }, { id }) => {
+const mapStateToProps = ({ students }, { id }) => {
   return {
-    campus: campuses.find(campus => campus.id === id)
-  }
+    students: students && students.find(student => student.id === id)
+  };
 };
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    createStudent: (student) => dispatch(createStudent(student, history))
+    createStudent: (student) => dispatch(createStudent(student, history)),
+    updateStudent: (student, id) => dispatch(updateStudent(student, id, history))
   }
 };
 

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { updateCampus, deleteCampus } from './store';
 
 const Campuses = ({ campuses }) => {
-  console.log(campuses)
   return (
     <div>
       <title>List of Campuses</title>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deleteStudent } from './store';
+import { Link } from 'react-router-dom';
+import { deleteStudent, updateStudent } from './store';
 
 
 class Student extends Component {
@@ -19,12 +20,12 @@ class Student extends Component {
         const { onDeleteStudent } = this;
         return (
             <div className="student">
-            <div>
-            <h2>Student - { student && student.name }</h2>
-            <img src={student.imageURL}/>
-            </div>
-            <th></th>
-            <button className="btn btn-default btn-xs" onClick={onDeleteStudent}> Delete Student </button>
+                <div>
+                    <h2>Student - {student && student.name}</h2>
+                    <img src={student.imageURL} />
+                </div>
+                <p><Link className="btn btn-default" to={`/students/${student && student.id}/edit`}>Edit Student</Link></p>
+                <button className="btn btn-default" onClick={onDeleteStudent}> Delete Student </button>
             </div>
         )
     }
@@ -37,7 +38,8 @@ const mapStateToProps = ({ students }, { id }) => {
 };
 
 const mapDispatchToProps = (dispatch, { history }) => {
-    return { 
+    return {
+        updateStudent: (student) => dispatch(updateStudent(student)),
         deleteStudent: (student) => dispatch(deleteStudent(student, history))
     }
 };

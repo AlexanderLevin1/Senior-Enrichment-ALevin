@@ -69,7 +69,9 @@ class CampusCreate extends Component {
 };
 
 const mapStateToProps = ({ campuses }, { id }) => {
-    return { campus: campuses && campuses.find(campus => campus.id === id) };
+    return { 
+        campus: campuses && campuses.find(campus => campus.id === id) 
+    };
 };
 
 const mapDispatchToProps = (dispatch, { history }) => {
@@ -79,4 +81,4 @@ const mapDispatchToProps = (dispatch, { history }) => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(CampusCreate);
+export default connect(mapStateToProps, mapDispatchToProps)(CampusCreate);

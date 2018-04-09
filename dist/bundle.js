@@ -880,7 +880,7 @@ var studentsReducer = function studentsReducer() {
         case CREATE_STUDENT:
             state = [].concat(_toConsumableArray(state), [action.student]);
             break;
-        case DELETE_STUDENT:
+        case UPDATE_STUDENT:
             state = state.map(function (student) {
                 return student.id === action.student.id ? action.student : student;
             });
@@ -1018,7 +1018,7 @@ var deleteStudent = function deleteStudent(student, history) {
                 student: student
             });
         }).then(function () {
-            return history.push('/students');
+            history.push('/students');
         });
     };
 };
@@ -4228,6 +4228,8 @@ var _reactRedux = __webpack_require__(6);
 
 var _reactRouterDom = __webpack_require__(9);
 
+var _store = __webpack_require__(8);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -4235,7 +4237,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var StudentList = function StudentList(_ref) {
     var students = _ref.students;
 
-    console.log(students);
     return _react2.default.createElement(
         'div',
         null,
@@ -4257,7 +4258,10 @@ var StudentList = function StudentList(_ref) {
                                 { to: '/students/' + student.id },
                                 student.fullName,
                                 _react2.default.createElement('img', { className: 'student-thumbnail', src: student.imageURL, width: 100 })
-                            )
+                            ),
+                            _react2.default.createElement('button', { className: 'remove-button', onClick: function onClick() {
+                                    return (0, _store.deleteStudent)(student);
+                                } })
                         )
                     )
                 );
@@ -4282,7 +4286,28 @@ var mapStateToProps = function mapStateToProps(_ref2, _ref3) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(StudentList);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        updateStudent: function (_updateStudent) {
+            function updateStudent(_x) {
+                return _updateStudent.apply(this, arguments);
+            }
+
+            updateStudent.toString = function () {
+                return _updateStudent.toString();
+            };
+
+            return updateStudent;
+        }(function (student) {
+            return dispatch(updateStudent(student));
+        }),
+        deleteStudent: function deleteStudent(student) {
+            return dispatch((0, _store.deleteStudent)(student));
+        }
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(StudentList);
 
 /***/ }),
 /* 57 */
@@ -28909,7 +28934,7 @@ var Campus = function (_Component) {
                 ),
                 _react2.default.createElement(
                     'button',
-                    { className: 'btn btn-default btn-xs', onClick: onDeleteCampus },
+                    { className: 'btn btn-default', onClick: onDeleteCampus },
                     'Delete Campus'
                 ),
                 _react2.default.createElement(
@@ -28942,9 +28967,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref3) {
     var history = _ref3.history;
 
     return {
-        createCampus: function createCampus(campus) {
-            return dispatch((0, _store.createCampus)(campus));
-        },
         deleteCampus: function deleteCampus(campus) {
             return dispatch((0, _store.deleteCampus)(campus, history));
         }
@@ -28979,7 +29001,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Campuses = function Campuses(_ref) {
   var campuses = _ref.campuses;
 
-  console.log(campuses);
   return _react2.default.createElement(
     'div',
     null,
@@ -29198,9 +29219,11 @@ var mapStateToProps = function mapStateToProps(_ref2, _ref3) {
     var campuses = _ref2.campuses;
     var id = _ref3.id;
 
-    return { campus: campuses && campuses.find(function (campus) {
+    return {
+        campus: campuses && campuses.find(function (campus) {
             return campus.id === id;
-        }) };
+        })
+    };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref4) {
@@ -29216,7 +29239,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref4) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(CampusCreate);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CampusCreate);
 
 /***/ }),
 /* 145 */
@@ -29236,6 +29259,8 @@ var _react = __webpack_require__(0);
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(6);
+
+var _reactRouterDom = __webpack_require__(9);
 
 var _store = __webpack_require__(8);
 
@@ -29285,10 +29310,18 @@ var Student = function (_Component) {
                     ),
                     _react2.default.createElement('img', { src: student.imageURL })
                 ),
-                _react2.default.createElement('th', null),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { className: 'btn btn-default', to: '/students/' + (student && student.id) + '/edit' },
+                        'Edit Student'
+                    )
+                ),
                 _react2.default.createElement(
                     'button',
-                    { className: 'btn btn-default btn-xs', onClick: onDeleteStudent },
+                    { className: 'btn btn-default', onClick: onDeleteStudent },
                     ' Delete Student '
                 )
             );
@@ -29315,6 +29348,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref3) {
     var history = _ref3.history;
 
     return {
+        updateStudent: function updateStudent(student) {
+            return dispatch((0, _store.updateStudent)(student));
+        },
         deleteStudent: function deleteStudent(student) {
             return dispatch((0, _store.deleteStudent)(student, history));
         }
@@ -29338,6 +29374,8 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = __webpack_require__(6);
+
 var _StudentList = __webpack_require__(56);
 
 var _StudentList2 = _interopRequireDefault(_StudentList);
@@ -29356,11 +29394,11 @@ var Students = function Students() {
             ' Students '
         ),
         _react2.default.createElement(
-            'p',
-            null,
+            'button',
+            { className: 'btn btn-defaul btnd-xs' },
             _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: '/newStudent', className: 'btn btn-defaul btnd-xs' },
+                { to: '/newStudent' },
                 'Add Student'
             )
         ),
@@ -29435,7 +29473,9 @@ var StudentCreate = function (_Component) {
   }, {
     key: 'onCreateStudent',
     value: function onCreateStudent(ev) {
-      var campus = this.props.campus;
+      var _props = this.props,
+          student = _props.student,
+          campus = _props.campus;
       var _state = this.state,
           firstName = _state.firstName,
           lastName = _state.lastName,
@@ -29473,33 +29513,69 @@ var StudentCreate = function (_Component) {
       var onCreateStudent = this.onCreateStudent,
           onChangeForm = this.onChangeForm,
           onUpdateStudent = this.onUpdateStudent;
+      var student = this.props.student;
+      var _state3 = this.state,
+          firstName = _state3.firstName,
+          lastName = _state3.lastName,
+          email = _state3.email,
+          imageURL = _state3.imageURL,
+          gpa = _state3.gpa;
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'default-margins' },
         _react2.default.createElement(
           'h2',
           null,
-          'New Student'
+          !student ? 'Add Student' : 'Edit ' + student.fullName
         ),
         _react2.default.createElement(
           'form',
-          { className: 'form-group' },
-          'firstName',
-          _react2.default.createElement('input', { name: 'firstName', onChange: onChangeForm }),
-          'lastName',
-          _react2.default.createElement('input', { name: 'lastName', onChange: onChangeForm }),
-          'email',
-          _react2.default.createElement('input', { name: 'email', onChange: onChangeForm }),
-          'imageURL',
-          _react2.default.createElement('input', { name: 'imageURL', onChange: onChangeForm }),
-          'gpa',
-          _react2.default.createElement('input', { name: 'gpa', onChange: onChangeForm })
+          { className: 'margin-top-10', display: 'table' },
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'label',
+              { display: 'table-cell' },
+              'firstName:'
+            ),
+            _react2.default.createElement('input', { name: 'firstName', onChange: onChangeForm, value: firstName, display: 'table' })
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'label',
+              { display: 'table-cell' },
+              'lastName:'
+            ),
+            _react2.default.createElement('input', { name: 'lastName', onChange: onChangeForm, value: lastName, display: 'table' })
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'email:',
+            _react2.default.createElement('input', { name: 'email', onChange: onChangeForm, value: email })
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'imageURL:',
+            _react2.default.createElement('input', { name: 'imageURL', onChange: onChangeForm, value: imageURL })
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'gpa:',
+            _react2.default.createElement('input', { name: 'gpa', onChange: onChangeForm, value: gpa })
+          )
         ),
         _react2.default.createElement(
           'button',
-          { onClick: onCreateStudent },
-          'Add Student'
+          { onClick: !student ? onCreateStudent : onUpdateCampus },
+          !student ? 'Add' : 'Edit',
+          ' Student'
         )
       );
     }
@@ -29511,12 +29587,12 @@ var StudentCreate = function (_Component) {
 ;
 
 var mapStateToProps = function mapStateToProps(_ref2, _ref3) {
-  var campuses = _ref2.campuses;
+  var students = _ref2.students;
   var id = _ref3.id;
 
   return {
-    campus: campuses.find(function (campus) {
-      return campus.id === id;
+    students: students && students.find(function (student) {
+      return student.id === id;
     })
   };
 };
@@ -29527,6 +29603,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref4) {
   return {
     createStudent: function createStudent(student) {
       return dispatch((0, _store.createStudent)(student, history));
+    },
+    updateStudent: function updateStudent(student, id) {
+      return dispatch((0, _store.updateStudent)(student, id, history));
     }
   };
 };

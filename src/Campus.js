@@ -26,7 +26,7 @@ class Campus extends Component {
             </div>
                 <p><Link className="btn btn-default" to={`/newStudent`}>Add Student</Link></p>
                 <p><Link className="btn btn-default" to={`/campuses/${campus && campus.id}/edit`}>Edit Campus</Link></p>
-                <button className="btn btn-default btn-xs" onClick={onDeleteCampus}>Delete Campus</button>
+                <button className="btn btn-default" onClick={onDeleteCampus}>Delete Campus</button>
                 <h4> Current Students </h4>
                 <StudentList id={campus_id} />
             </div>
@@ -42,7 +42,6 @@ const mapStateToProps = ({ campuses }, { id }) => {
 
 const mapDispatchToProps = (dispatch, { history }) => {
     return {
-        createCampus: (campus) => dispatch(createCampus(campus)),
         deleteCampus: (campus) => dispatch(deleteCampus(campus, history))
     };
 };
