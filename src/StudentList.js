@@ -10,16 +10,18 @@ const StudentList = ({ students }) => {
                 {
                     students && students.map(student => {
                         return (
-                            <div className="row" className="col-xs-4">
+                            
                             <ul key={student.id}>
+                            <div className="row" className="col-xs-4">
                             <div className="thumbnail" width = {300}>
                                 <Link to={`/students/${student.id}`}>
                                     {student.fullName}
                                     <img className="student-thumbnail" src={student.imageURL} width = {100} />
                                 </Link>
                                 </div>
+                                </div>
                             </ul>
-                            </div>
+                            
                         );
                     })
                 }
@@ -29,8 +31,12 @@ const StudentList = ({ students }) => {
     );
 };
 
-const mapStateToProps = ({ students }) => {
-    return { students };
+const mapStateToProps = ({ students }, {campus_id }) => {
+    return { 
+        students: !campus_id ? students: students.filter(student => {
+            return student.campus_id === campus_id
+        })
+    };
 };
 
 export default connect(mapStateToProps)(StudentList);

@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createStudent } from './store';
+import { createStudent, updateStudent } from './store';
 
 class StudentCreate extends Component {
-  constructor() {
+  constructor({student}) {
     super();
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      imageURL: '',
-      gpa: 0
+      firstName: !student ? '' : student.firstName,
+      lastName: ! student ? '' : student.lastName,
+      email: !student ? '' : student.lastName,
+      imageURL: !student ? '' : imageURL,
+      gpa: !student ? '' : 0
     }
     this.onChangeForm = this.onChangeForm.bind(this)
     this.onCreateStudent = this.onCreateStudent.bind(this)
+    this.onUpdateStudent = this.onUpdateStudent.bind(this);
   }
 
   onChangeForm(ev) {
@@ -37,8 +38,15 @@ class StudentCreate extends Component {
     })
   }
 
+  onUpdateStudent(ev) {
+    const { firstName, lastName, email, imageURL, gpa } = this.state;
+    const { student } = this.props;
+    ev.preventDefault();
+    this.props.updateStudent({ firstName, lastName, email, imageURL, gpa }, student.id);
+};
+
   render() {
-    const { onCreateStudent, onChangeForm } = this;
+    const { onCreateStudent, onChangeForm, onUpdateStudent } = this;
     return (
       <div>
         <h2>New Student</h2>

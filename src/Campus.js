@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { createCampus, deleteCampus, updateCampus } from './store';
+import { createCampus, deleteCampus } from './store';
 import StudentList from './StudentList';
 
 class Campus extends Component {
@@ -25,9 +25,9 @@ class Campus extends Component {
                 <img className="image-center" src={campus && campus.imageURL} />
             </div>
                 <p><Link className="btn btn-default" to={`/newStudent`}>Add Student</Link></p>
+                <p><Link className="btn btn-default" to={`/campuses/${campus && campus.id}/edit`}>Edit Campus</Link></p>
                 <button className="btn btn-default btn-xs" onClick={onDeleteCampus}>Delete Campus</button>
                 <h4> Current Students </h4>
-        {/* providing all students, fix */}
                 <StudentList id={campus_id} />
             </div>
         )

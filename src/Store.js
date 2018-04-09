@@ -1,17 +1,19 @@
-// REDUX STORE!!! 
+// -------------- REDUX STORE!!! ------------------
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import axios from 'axios';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
 // -------- ACTIONS ---------------
 
 const SET_CAMPUSES = 'SET_CAMPUSES';
 const CREATE_CAMPUS = 'CREATE_CAMPUS';
-const EDIT_CAMPUS = 'EDIT_CAMPUS';
+const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
 const DELETE_CAMPUS = 'DELETE_CAMPUS';
 
 const SET_STUDENTS = 'SET_STUDENTS';
 const CREATE_STUDENT = 'CREATE_STUDENT';
+const UPDATE_STUDENT = 'UPDATE_STUDENT';
 const DELETE_STUDENT = 'DELETE_STUDENT';
 
 // --------- REDUCER ---------------
@@ -24,6 +26,10 @@ const campusesReducer = (state = [], action) => {
         case CREATE_CAMPUS:
             state = [...state, action.campus];
             break;
+        case UPDATE_CAMPUS:
+            state = state.map(campus => {
+                return campus.id === action.campus.id ? action.campus : campus;
+            });
         case DELETE_CAMPUS:
             state = state.filter(campus => campus.id !== action.campus.id);
             break;
@@ -39,6 +45,11 @@ const studentsReducer = (state = [], action) => {
             break;
         case CREATE_STUDENT:
             state = [...state, action.student];
+            break;
+        case DELETE_STUDENT:
+            state = state.map(student => {
+                return student.id === action.student.id ? action.student : student;
+            });
             break;
         case DELETE_STUDENT:
             state = state.filter(student => student.id !== action.student.id);
@@ -109,6 +120,34 @@ const createStudent = (student, history) => {
     }
 };
 
+const updateCampus = (campus, id, history) => {
+    return (dispatch) => {
+        return axios.put(`/api/campuses/${id}`, campus)
+            .then(result => result.data)
+            .then(campus => dispatch({
+                type: UPDATE_CAMPUS,
+                campus
+            }))
+            .then(action => {
+                history.push(`/campuses/${action.campus.id}`);
+            });
+    };
+};
+
+const updateStudent = (student, id, history) => {
+    return (dispatch) => {
+        return axios.put(`/api/students/${id}`, student)
+            .then(result => result.data)
+            .then(student => dispatch({
+                type: UPDATE_STUDENT,
+                student
+            }))
+            .then(action => {
+                history.push(`/students/${action.student.id}`);
+            });
+    };
+};
+
 const deleteCampus = (campus, history) => {
     return (dispatch) => {
         return axios.delete(`/api/campuses/${campus.id}`)
@@ -123,9 +162,6 @@ const deleteCampus = (campus, history) => {
     }
 };
 
-/* editCampus
-editStudent */
-
 const deleteStudent = (student, history) => {
     return (dispatch) => {
         return axios.delete(`/api/students/${student.id}`)
@@ -138,7 +174,7 @@ const deleteStudent = (student, history) => {
     }
 };
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 export default store;
-export { loadCampuses, loadStudents, createCampus, createStudent, deleteCampus, deleteStudent }
+export { loadCampuses, loadStudents, createCampus, createStudent, updateCampus, updateStudent, deleteCampus, deleteStudent }
