@@ -21,7 +21,7 @@ class Student extends Component {
         return (
             <div className="student">
                 <div>
-                    <h2>Student - {student && student.name}</h2>
+                    <h2>{student.fullName}</h2>
                     <img src={student.imageURL} />
                 </div>
                 <p><Link className="btn btn-default" to={`/students/${student && student.id}/edit`}>Edit Student</Link></p>

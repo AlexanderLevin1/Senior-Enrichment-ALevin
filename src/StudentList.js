@@ -34,9 +34,11 @@ const StudentList = ({ students }) => {
 };
 
 const mapStateToProps = ({ students }, { campus_id }) => {
+    console.log(campus_id)
+    console.log(students[0])
     return {
         students: !campus_id ? students : students.filter(student => {
-            return student.campus_id === campus_id
+            return student.campusId === campus_id 
         })
     };
 };

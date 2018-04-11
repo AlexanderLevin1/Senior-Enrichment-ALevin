@@ -28,7 +28,7 @@ class Campus extends Component {
                 <p><Link className="btn btn-default" to={`/campuses/${campus && campus.id}/edit`}>Edit Campus</Link></p>
                 <button className="btn btn-default" onClick={onDeleteCampus}>Delete Campus</button>
                 <h4> Current Students </h4>
-                <StudentList id={campus_id} />
+                <StudentList campus_id={campus_id} />
             </div>
         )
     }

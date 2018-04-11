@@ -764,48 +764,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
-function makeEmptyFunction(arg) {
-  return function () {
-    return arg;
-  };
-}
-
-/**
- * This function accepts and discards inputs; it has no side effects. This is
- * primarily useful idiomatically for overridable function endpoints which
- * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
- */
-var emptyFunction = function emptyFunction() {};
-
-emptyFunction.thatReturns = makeEmptyFunction;
-emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-emptyFunction.thatReturnsThis = function () {
-  return this;
-};
-emptyFunction.thatReturnsArgument = function (arg) {
-  return arg;
-};
-
-module.exports = emptyFunction;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -1034,6 +992,48 @@ exports.updateCampus = updateCampus;
 exports.updateStudent = updateStudent;
 exports.deleteCampus = deleteCampus;
 exports.deleteStudent = deleteStudent;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+function makeEmptyFunction(arg) {
+  return function () {
+    return arg;
+  };
+}
+
+/**
+ * This function accepts and discards inputs; it has no side effects. This is
+ * primarily useful idiomatically for overridable function endpoints which
+ * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+ */
+var emptyFunction = function emptyFunction() {};
+
+emptyFunction.thatReturns = makeEmptyFunction;
+emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+emptyFunction.thatReturnsThis = function () {
+  return this;
+};
+emptyFunction.thatReturnsArgument = function (arg) {
+  return arg;
+};
+
+module.exports = emptyFunction;
 
 /***/ }),
 /* 9 */
@@ -1428,7 +1428,7 @@ module.exports = emptyObject;
 
 
 
-var emptyFunction = __webpack_require__(7);
+var emptyFunction = __webpack_require__(8);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -4228,7 +4228,7 @@ var _reactRedux = __webpack_require__(6);
 
 var _reactRouterDom = __webpack_require__(9);
 
-var _store = __webpack_require__(8);
+var _store = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4279,9 +4279,11 @@ var mapStateToProps = function mapStateToProps(_ref2, _ref3) {
     var students = _ref2.students;
     var campus_id = _ref3.campus_id;
 
+    console.log(campus_id);
+    console.log(students[0]);
     return {
         students: !campus_id ? students : students.filter(function (student) {
-            return student.campus_id === campus_id;
+            return student.campusId === campus_id;
         })
     };
 };
@@ -4328,7 +4330,7 @@ var _App = __webpack_require__(94);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _store = __webpack_require__(8);
+var _store = __webpack_require__(7);
 
 var _store2 = _interopRequireDefault(_store);
 
@@ -4357,7 +4359,7 @@ var root = document.getElementById('root'); // RENDER
  * LICENSE file in the root directory of this source tree.
  */
 
-var m=__webpack_require__(10),n=__webpack_require__(14),p=__webpack_require__(7),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.portal"):60106,u=q?Symbol["for"]("react.fragment"):60107,v=q?Symbol["for"]("react.strict_mode"):60108,w=q?Symbol["for"]("react.provider"):60109,x=q?Symbol["for"]("react.context"):60110,y=q?Symbol["for"]("react.async_mode"):60111,z=q?Symbol["for"]("react.forward_ref"):60112,A="function"===
+var m=__webpack_require__(10),n=__webpack_require__(14),p=__webpack_require__(8),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.portal"):60106,u=q?Symbol["for"]("react.fragment"):60107,v=q?Symbol["for"]("react.strict_mode"):60108,w=q?Symbol["for"]("react.provider"):60109,x=q?Symbol["for"]("react.context"):60110,y=q?Symbol["for"]("react.async_mode"):60111,z=q?Symbol["for"]("react.forward_ref"):60112,A="function"===
 typeof Symbol&&Symbol.iterator;function B(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var C={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function D(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||C}D.prototype.isReactComponent={};D.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?B("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};D.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};function E(){}
 E.prototype=D.prototype;function F(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||C}var G=F.prototype=new E;G.constructor=F;m(G,D.prototype);G.isPureReactComponent=!0;var H={current:null},I=Object.prototype.hasOwnProperty,J={key:!0,ref:!0,__self:!0,__source:!0};
@@ -4398,7 +4400,7 @@ var _assign = __webpack_require__(10);
 var emptyObject = __webpack_require__(14);
 var invariant = __webpack_require__(11);
 var warning = __webpack_require__(15);
-var emptyFunction = __webpack_require__(7);
+var emptyFunction = __webpack_require__(8);
 var checkPropTypes = __webpack_require__(17);
 
 // TODO: this is special because it gets imported during build.
@@ -5852,7 +5854,7 @@ if (process.env.NODE_ENV === 'production') {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var ba=__webpack_require__(0),m=__webpack_require__(29),A=__webpack_require__(10),C=__webpack_require__(7),ea=__webpack_require__(30),fa=__webpack_require__(31),ha=__webpack_require__(32),ja=__webpack_require__(14);
+var ba=__webpack_require__(0),m=__webpack_require__(29),A=__webpack_require__(10),C=__webpack_require__(8),ea=__webpack_require__(30),fa=__webpack_require__(31),ha=__webpack_require__(32),ja=__webpack_require__(14);
 function D(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}ba?void 0:D("227");
 function ka(a,b,c,d,e,f,h,g,k){this._hasCaughtError=!1;this._caughtError=null;var v=Array.prototype.slice.call(arguments,3);try{b.apply(c,v)}catch(l){this._caughtError=l,this._hasCaughtError=!0}}
 var E={_caughtError:null,_hasCaughtError:!1,_rethrowError:null,_hasRethrowError:!1,invokeGuardedCallback:function(a,b,c,d,e,f,h,g,k){ka.apply(E,arguments)},invokeGuardedCallbackAndCatchFirstError:function(a,b,c,d,e,f,h,g,k){E.invokeGuardedCallback.apply(this,arguments);if(E.hasCaughtError()){var v=E.clearCaughtError();E._hasRethrowError||(E._hasRethrowError=!0,E._rethrowError=v)}},rethrowCaughtError:function(){return ma.apply(E,arguments)},hasCaughtError:function(){return E._hasCaughtError},clearCaughtError:function(){if(E._hasCaughtError){var a=
@@ -6170,7 +6172,7 @@ var invariant = __webpack_require__(11);
 var warning = __webpack_require__(15);
 var ExecutionEnvironment = __webpack_require__(29);
 var _assign = __webpack_require__(10);
-var emptyFunction = __webpack_require__(7);
+var emptyFunction = __webpack_require__(8);
 var checkPropTypes = __webpack_require__(17);
 var getActiveElement = __webpack_require__(30);
 var shallowEqual = __webpack_require__(31);
@@ -23031,7 +23033,7 @@ function createProvider() {
 
 
 
-var emptyFunction = __webpack_require__(7);
+var emptyFunction = __webpack_require__(8);
 var invariant = __webpack_require__(11);
 var warning = __webpack_require__(15);
 var assign = __webpack_require__(10);
@@ -23581,7 +23583,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 
-var emptyFunction = __webpack_require__(7);
+var emptyFunction = __webpack_require__(8);
 var invariant = __webpack_require__(11);
 var ReactPropTypesSecret = __webpack_require__(18);
 
@@ -24713,7 +24715,7 @@ var _reactRedux = __webpack_require__(6);
 
 var _reactRouterDom = __webpack_require__(9);
 
-var _store = __webpack_require__(8);
+var _store = __webpack_require__(7);
 
 var _Nav = __webpack_require__(140);
 
@@ -28860,7 +28862,7 @@ var _reactRedux = __webpack_require__(6);
 
 var _reactRouterDom = __webpack_require__(9);
 
-var _store = __webpack_require__(8);
+var _store = __webpack_require__(7);
 
 var _StudentList = __webpack_require__(56);
 
@@ -28942,7 +28944,7 @@ var Campus = function (_Component) {
                     null,
                     ' Current Students '
                 ),
-                _react2.default.createElement(_StudentList2.default, { id: campus_id })
+                _react2.default.createElement(_StudentList2.default, { campus_id: campus_id })
             );
         }
     }]);
@@ -28994,7 +28996,7 @@ var _reactRedux = __webpack_require__(6);
 
 var _reactRouterDom = __webpack_require__(9);
 
-var _store = __webpack_require__(8);
+var _store = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29082,7 +29084,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(6);
 
-var _store = __webpack_require__(8);
+var _store = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29262,7 +29264,7 @@ var _reactRedux = __webpack_require__(6);
 
 var _reactRouterDom = __webpack_require__(9);
 
-var _store = __webpack_require__(8);
+var _store = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29305,8 +29307,7 @@ var Student = function (_Component) {
                     _react2.default.createElement(
                         'h2',
                         null,
-                        'Student - ',
-                        student && student.name
+                        student.fullName
                     ),
                     _react2.default.createElement('img', { src: student.imageURL })
                 ),
@@ -29427,7 +29428,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(6);
 
-var _store = __webpack_require__(8);
+var _store = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29442,19 +29443,19 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var StudentCreate = function (_Component) {
   _inherits(StudentCreate, _Component);
 
-  function StudentCreate(_ref) {
-    var student = _ref.student;
-
+  function StudentCreate(props) {
     _classCallCheck(this, StudentCreate);
 
-    var _this = _possibleConstructorReturn(this, (StudentCreate.__proto__ || Object.getPrototypeOf(StudentCreate)).call(this));
+    var _this = _possibleConstructorReturn(this, (StudentCreate.__proto__ || Object.getPrototypeOf(StudentCreate)).call(this, props));
+
+    var student = props.student;
 
     _this.state = {
       firstName: !student ? '' : student.firstName,
       lastName: !student ? '' : student.lastName,
-      email: !student ? '' : student.lastName,
-      imageURL: !student ? '' : imageURL,
-      gpa: !student ? '' : 0
+      email: !student ? '' : student.email,
+      imageURL: !student ? '' : student.imageURL,
+      gpa: !student ? '' : student.gpa
     };
     _this.onChangeForm = _this.onChangeForm.bind(_this);
     _this.onCreateStudent = _this.onCreateStudent.bind(_this);
@@ -29473,9 +29474,7 @@ var StudentCreate = function (_Component) {
   }, {
     key: 'onCreateStudent',
     value: function onCreateStudent(ev) {
-      var _props = this.props,
-          student = _props.student,
-          campus = _props.campus;
+      var student = this.props.student;
       var _state = this.state,
           firstName = _state.firstName,
           lastName = _state.lastName,
@@ -29508,6 +29507,19 @@ var StudentCreate = function (_Component) {
       this.props.updateStudent({ firstName: firstName, lastName: lastName, email: email, imageURL: imageURL, gpa: gpa }, student.id);
     }
   }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.student.firstName !== this.state.firstName) {
+        this.setState({
+          firstName: nextProps.student.firstName || '',
+          lastName: nextProps.student.lastName || '',
+          email: nextProps.student.email || '',
+          imageURL: nextProps.student.imageURL || '',
+          gpa: nextProps.student.gpa || 0
+        });
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var onCreateStudent = this.onCreateStudent,
@@ -29521,6 +29533,7 @@ var StudentCreate = function (_Component) {
           imageURL = _state3.imageURL,
           gpa = _state3.gpa;
 
+      console.log('***' + firstName);
       return _react2.default.createElement(
         'div',
         { className: 'default-margins' },
@@ -29573,7 +29586,7 @@ var StudentCreate = function (_Component) {
         ),
         _react2.default.createElement(
           'button',
-          { onClick: !student ? onCreateStudent : onUpdateCampus },
+          { onClick: !student ? onCreateStudent : onUpdateStudent },
           !student ? 'Add' : 'Edit',
           ' Student'
         )
@@ -29586,19 +29599,20 @@ var StudentCreate = function (_Component) {
 
 ;
 
-var mapStateToProps = function mapStateToProps(_ref2, _ref3) {
-  var students = _ref2.students;
-  var id = _ref3.id;
+var mapStateToProps = function mapStateToProps(_ref, _ref2) {
+  var students = _ref.students;
+  var id = _ref2.id;
+
 
   return {
-    students: students && students.find(function (student) {
+    student: students && students.find(function (student) {
       return student.id === id;
     })
   };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref4) {
-  var history = _ref4.history;
+var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref3) {
+  var history = _ref3.history;
 
   return {
     createStudent: function createStudent(student) {

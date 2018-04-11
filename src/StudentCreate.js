@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import { createStudent, updateStudent } from './store';
 
 class StudentCreate extends Component {
-  constructor({ student }) {
-    super();
+  constructor(props) {
+    super(props);
+    const { student } = props;
     this.state = {
       firstName: !student ? '' : student.firstName,
       lastName: !student ? '' : student.lastName,
-      email: !student ? '' : student.lastName,
-      imageURL: !student ? '' : imageURL,
-      gpa: !student ? '' : 0
+      email: !student ? '' : student.email,
+      imageURL: !student ? '' : student.imageURL,
+      gpa: !student ? '' : student.gpa
     }
     this.onChangeForm = this.onChangeForm.bind(this)
     this.onCreateStudent = this.onCreateStudent.bind(this)
@@ -25,7 +26,7 @@ class StudentCreate extends Component {
   }
 
   onCreateStudent(ev) {
-    const { student, campus } = this.props;
+    const { student } = this.props;
     const { firstName, lastName, email, imageURL, gpa } = this.state;
     ev.preventDefault;
     this.props.createStudent({
@@ -45,10 +46,23 @@ class StudentCreate extends Component {
     this.props.updateStudent({ firstName, lastName, email, imageURL, gpa }, student.id);
   };
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.student.firstName !== this.state.firstName) {
+      this.setState({
+        firstName: nextProps.student.firstName || '',
+        lastName: nextProps.student.lastName || '',
+        email: nextProps.student.email || '',
+        imageURL: nextProps.student.imageURL || '',
+        gpa: nextProps.student.gpa || 0
+      })
+    }
+  }
+
   render() {
     const { onCreateStudent, onChangeForm, onUpdateStudent } = this;
     const { student } = this.props;
     const { firstName, lastName, email, imageURL, gpa } = this.state;
+   console.log('***' + firstName)
     return (
       <div className="default-margins">
         <h2>{!student ? ('Add Student') : (`Edit ${student.fullName}`)}</h2>
@@ -78,7 +92,7 @@ class StudentCreate extends Component {
           <input name="gpa" onChange={onChangeForm} value={gpa} />
           </div>
         </form>
-        <button onClick={!student ? onCreateStudent : onUpdateCampus}>
+        <button onClick={!student ? onCreateStudent : onUpdateStudent}>
           {!student ? ('Add') : ('Edit')} Student
         </button>
       </div>
@@ -87,10 +101,11 @@ class StudentCreate extends Component {
 };
 
 const mapStateToProps = ({ students }, { id }) => {
+
   return {
-    students: students && students.find(student => student.id === id)
+    student: students && students.find(student => student.id === id)
   };
-};
+}
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
