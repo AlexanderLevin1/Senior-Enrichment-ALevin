@@ -5,36 +5,31 @@ import { Link } from 'react-router-dom';
 const Nav = () => {
     const url = location.hash.slice(1)
     return (
-        <div className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="wrapper center-all">
-                <nav style={{ marginBottom: '10px' }} className="navbar">
-                    <Link className="navbar-brand align-center" to='/' className="d-inline-block align-center" style={{ width: '30px' }}>
-                        Home
+        <nav style={{ marginBottom: '10px' }} className="navbar navbar-default">
+            <div className="navbar navbar-expand-lg navbar-light bg-light">
+                <div className="navbar-header">
+                    <button type="button" className="btn btn-default navbar-btn">
+                        <Link className="navbar-brand align-center" to='/' className="d-inline-block align-center" style={{ width: '30px' }}>
+                            Home
                     </Link>
-                    <ul className="nav">
-                        {
-                            url === '/campuses' ? (
-                                <span className="nav-item" style={{ borderBottom: '1px solid blue', margin: '0px 5px' }}>Campuses</span>
-                            ) : (
-                                    <li className="nav-item" style={{ margin: '0px 5px' }}>
-                                        <Link to='/campuses' style={{ color: 'blue' }}>Campuses</Link>
-                                    </li>
-                                )
-                        }
-                        {
-                            url === '/students' ? (
-                                <span className="nav-item" style={{ borderBottom: '1px solid blue', margin: '0px 5px' }}>Students</span>
-                            ) : (
-                                    <li className="nav-item" style={{ margin: '0px 5px' }}>
-                                        <Link to='/students' style={{ color: 'blue' }}>Students</Link>
-                                    </li>
-                                )
-                        }
-                    </ul>
-                </nav>
+                    </button>
+                    <button type="button" className="btn btn-default navbar-btn">
+                        <Link className="navbar-brand align-center" to='/campuses' className="d-inline-block align-center" style={{ width: '30px' }}>
+                            Campuses
+                    </Link>
+                    </button>
+                    <button type="button" className="btn btn-default navbar-btn">
+                        <Link className="navbar-brand align-center" to='/students' className="d-inline-block align-center" style={{ width: '30px' }}>
+                            Students
+                    </Link>
+                    </button>
+                    <p className="navbar-text pull-right"> Margaret Hamilton Academy </p>
+                </div>
             </div>
-        </div>
+        </nav>
     );
+
 };
 
 export default Nav;
+

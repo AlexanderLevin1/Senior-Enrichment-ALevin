@@ -28751,52 +28751,49 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var Nav = function Nav() {
-    var _React$createElement;
+    var _React$createElement, _React$createElement2, _React$createElement3;
 
     var url = location.hash.slice(1);
     return _react2.default.createElement(
-        'div',
-        { className: 'navbar navbar-expand-lg navbar-light bg-light' },
+        'nav',
+        { style: { marginBottom: '10px' }, className: 'navbar navbar-default' },
         _react2.default.createElement(
             'div',
-            { className: 'wrapper center-all' },
+            { className: 'navbar navbar-expand-lg navbar-light bg-light' },
             _react2.default.createElement(
-                'nav',
-                { style: { marginBottom: '10px' }, className: 'navbar' },
+                'div',
+                { className: 'navbar-header' },
                 _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    (_React$createElement = { className: 'navbar-brand align-center', to: '/' }, _defineProperty(_React$createElement, 'className', 'd-inline-block align-center'), _defineProperty(_React$createElement, 'style', { width: '30px' }), _React$createElement),
-                    'Home'
+                    'button',
+                    { type: 'button', className: 'btn btn-default navbar-btn' },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        (_React$createElement = { className: 'navbar-brand align-center', to: '/' }, _defineProperty(_React$createElement, 'className', 'd-inline-block align-center'), _defineProperty(_React$createElement, 'style', { width: '30px' }), _React$createElement),
+                        'Home'
+                    )
                 ),
                 _react2.default.createElement(
-                    'ul',
-                    { className: 'nav' },
-                    url === '/campuses' ? _react2.default.createElement(
-                        'span',
-                        { className: 'nav-item', style: { borderBottom: '1px solid blue', margin: '0px 5px' } },
+                    'button',
+                    { type: 'button', className: 'btn btn-default navbar-btn' },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        (_React$createElement2 = { className: 'navbar-brand align-center', to: '/campuses' }, _defineProperty(_React$createElement2, 'className', 'd-inline-block align-center'), _defineProperty(_React$createElement2, 'style', { width: '30px' }), _React$createElement2),
                         'Campuses'
-                    ) : _react2.default.createElement(
-                        'li',
-                        { className: 'nav-item', style: { margin: '0px 5px' } },
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/campuses', style: { color: 'blue' } },
-                            'Campuses'
-                        )
-                    ),
-                    url === '/students' ? _react2.default.createElement(
-                        'span',
-                        { className: 'nav-item', style: { borderBottom: '1px solid blue', margin: '0px 5px' } },
-                        'Students'
-                    ) : _react2.default.createElement(
-                        'li',
-                        { className: 'nav-item', style: { margin: '0px 5px' } },
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/students', style: { color: 'blue' } },
-                            'Students'
-                        )
                     )
+                ),
+                _react2.default.createElement(
+                    'button',
+                    { type: 'button', className: 'btn btn-default navbar-btn' },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        (_React$createElement3 = { className: 'navbar-brand align-center', to: '/students' }, _defineProperty(_React$createElement3, 'className', 'd-inline-block align-center'), _defineProperty(_React$createElement3, 'style', { width: '30px' }), _React$createElement3),
+                        'Students'
+                    )
+                ),
+                _react2.default.createElement(
+                    'p',
+                    { className: 'navbar-text pull-right' },
+                    ' Margaret Hamilton Academy '
                 )
             )
         )
@@ -28825,7 +28822,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Home = function Home() {
     return _react2.default.createElement(
         "div",
-        { className: "container text-center" },
+        { className: "container-fluid" },
+        _react2.default.createElement(
+            "title",
+            null,
+            "Home Page"
+        ),
         _react2.default.createElement(
             "h1",
             null,
@@ -29005,11 +29007,24 @@ var Campuses = function Campuses(_ref) {
 
   return _react2.default.createElement(
     'div',
-    null,
+    { className: 'container' },
     _react2.default.createElement(
-      'title',
+      'div',
       null,
-      'List of Campuses'
+      _react2.default.createElement(
+        'title',
+        null,
+        'List of Campuses'
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'page-header' },
+      _react2.default.createElement(
+        'h1',
+        null,
+        ' Campuses '
+      )
     ),
     _react2.default.createElement(
       'button',
@@ -29026,16 +29041,20 @@ var Campuses = function Campuses(_ref) {
       campuses.map(function (campus) {
         return _react2.default.createElement(
           'div',
-          { key: campus.id, className: 'col-xs-4' },
+          { key: campus.id, className: 'col-xs-5' },
           _react2.default.createElement(
-            'h3',
-            { className: 'campus-name' },
-            campus.name
+            _reactRouterDom.Link,
+            { to: '/campuses/' + campus.id },
+            _react2.default.createElement(
+              'h3',
+              { className: 'campus-name' },
+              campus.name
+            )
           ),
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/campuses/' + campus.id },
-            _react2.default.createElement('img', { className: 'campus-thumbnail', src: campus.imageURL, width: 200, height: 150 })
+            _react2.default.createElement('img', { className: 'campus-thumbnail', src: campus.imageURL, width: '75%', height: '75' })
           ),
           _react2.default.createElement('button', { className: 'remove-button', onClick: function onClick() {
               return (0, _store.deleteCampus)(campus);
