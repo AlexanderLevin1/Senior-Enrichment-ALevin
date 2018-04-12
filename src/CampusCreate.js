@@ -50,17 +50,22 @@ class CampusCreate extends Component {
                 <div>
                     <form className="margin-top-10">
                         <div className="form-row">
-                            <label>Name:
-                            <input name="name" onChange={onChangeForm} value={name} />
-                            </label>
-                            <label>imageURL:</label>
-                            <input name="imageURL" onChange={onChangeForm} value={imageURL} />
-                            <label>Description:</label>
-                            <input name="description" onChange={onChangeForm} value={description} width={300} height={300}/>
+                            <div className="form-group col-md-6">
+                                <label>Name:</label>
+                                <input className="form-control" name="name" onChange={onChangeForm} value={name} />
+                            </div>
+                            <div className="form-group col-md-6">
+                                <label>imageURL:</label>
+                                <input className="form-control" name="imageURL" onChange={onChangeForm} value={imageURL} />
+                            </div>
+                            <div className="form-group col-md-6">
+                                <label>Description:</label>
+                                <input className="form-control" name="description" onChange={onChangeForm} value={description} width={300} height={300} />
+                            </div>
                         </div>
                     </form>
                 </div>
-                <button onClick={!campus ? onCreateCampus : onUpdateCampus}>
+                <button className="btn btn-primary btn-succss" onClick={!campus ? onCreateCampus : onUpdateCampus}>
                     {!campus ? ('Add') : ('Edit')} Campus
                 </button>
             </div>
@@ -69,8 +74,8 @@ class CampusCreate extends Component {
 };
 
 const mapStateToProps = ({ campuses }, { id }) => {
-    return { 
-        campus: campuses && campuses.find(campus => campus.id === id) 
+    return {
+        campus: campuses && campuses.find(campus => campus.id === id)
     };
 };
 

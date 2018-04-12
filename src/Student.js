@@ -24,8 +24,8 @@ class Student extends Component {
                     <h2>{student.fullName}</h2>
                     <img src={student.imageURL} />
                 </div>
-                <p><Link className="btn btn-default" to={`/students/${student && student.id}/edit`}>Edit Student</Link></p>
-                <button className="btn btn-default" onClick={onDeleteStudent}> Delete Student </button>
+                <p><Link className="btn btn-primary btn-info" to={`/students/${student && student.id}/edit`}>Edit Student</Link></p>
+                <p><Link className="btn btn-danger" onClick={onDeleteStudent}> Delete Student </Link></p>
             </div>
         )
     }

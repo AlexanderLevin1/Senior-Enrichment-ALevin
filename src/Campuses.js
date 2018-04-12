@@ -11,25 +11,28 @@ const Campuses = ({ campuses }) => {
         <title>List of Campuses</title>
       </div>
       <div className="page-header">
-      <h1> Campuses </h1>
+        <h1> Campuses: {campuses.length} </h1>
       </div>
-      <button><Link to={`/campuses/create`}>Add Campus</Link></button>
-      <div className="row">
-        {
+      <button className="btn btn-success"><Link to={`/campuses/create`}>Add Campus</Link></button>
+      <div className="card-group jumbotron">
+        {campuses.length ? (
           campuses.map(campus => {
             return (
-              <div key={campus.id} className="col-xs-5">
-              <Link to={`/campuses/${campus.id}`}>
-                <h3 className="campus-name">{campus.name}</h3>
-                </Link>
-                <Link to={`/campuses/${campus.id}`}>
-                  <img className="campus-thumbnail" src={campus.imageURL} width="75%" height="75" />
-                </Link>
-                <button className="remove-button" onClick={() => deleteCampus(campus)}>
-                </button>
-              </div>
-            )
-          })
+              <div key={campus.id} className="card">
+                <div className="card-body">
+                  <Link to={`/campuses/${campus.id}`}>
+                    <h3 className="campus-name">{campus.name}</h3>
+                  </Link>
+                  <Link to={`/campuses/${campus.id}`}>
+                    <img className="campus-thumbnail" src={campus.imageURL} width="30%" height="20%" />
+                  </Link>
+                </div>
+              </div>)
+          })) : (
+            <div>
+              <h3 className="text-center"> Please Add a Campus </h3>
+            </div>
+          )
         }
       </div>
     </div>

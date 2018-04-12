@@ -26,7 +26,7 @@ class StudentCreate extends Component {
   }
 
   onCreateStudent(ev) {
-    const { student } = this.props;
+    const { student, campus } = this.props;
     const { firstName, lastName, email, imageURL, gpa } = this.state;
     ev.preventDefault;
     this.props.createStudent({
@@ -47,7 +47,7 @@ class StudentCreate extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.student.firstName !== this.state.firstName) {
+    if (nextProps.student.firstName !== this.state.firstName) {
       this.setState({
         firstName: nextProps.student.firstName || '',
         lastName: nextProps.student.lastName || '',
@@ -62,37 +62,40 @@ class StudentCreate extends Component {
     const { onCreateStudent, onChangeForm, onUpdateStudent } = this;
     const { student } = this.props;
     const { firstName, lastName, email, imageURL, gpa } = this.state;
-   console.log('***' + firstName)
     return (
-      <div className="default-margins">
+      <div className="card text-center">
+      <div className="card-header">
         <h2>{!student ? ('Add Student') : (`Edit ${student.fullName}`)}</h2>
-        <form className="margin-top-10" display="table">
-          <div>
-            <label display="table-cell">
-              firstName:
-        </label>
-            <input name="firstName" onChange={onChangeForm} value={firstName} display="table" />
+        </div>
+        <div className="card-body">
+        <form>
+        <div className="form-row">
+          <div className="form-group col-md-6">
+            <label>firstName:</label>
+            <input className="form-control" name="firstName" onChange={onChangeForm} value={firstName} />
           </div>
-          <div>
-            <label display="table-cell">
-              lastName:
-          </label>
-            <input name="lastName" onChange={onChangeForm} value={lastName} display="table" />
+          <div className="form-group col-md-6">
+            <label>lastName:</label>
+            <input className="form-control" name="lastName" onChange={onChangeForm} value={lastName} />
           </div>
-          <div>
-            email:
-          <input name="email" onChange={onChangeForm} value={email} />
+          <div className="form-group cold-m-6">
+          <label>email:</label>
+          <input className="form-control" name="email" onChange={onChangeForm} value={email} />
           </div>
-          <div>
-            imageURL:
-          <input name="imageURL" onChange={onChangeForm} value={imageURL} />
+          <div className="form-group col-md-6">
+          <label>imageURL:</label>
+          <input className="form-control" name="imageURL" onChange={onChangeForm} value={imageURL} />
           </div>
-          <div>
-            gpa:
-          <input name="gpa" onChange={onChangeForm} value={gpa} />
+          <div className="form-group col-md-6">
+          <label>gpa:</label>
+          <input className="form-control" name="gpa" onChange={onChangeForm} value={gpa} />
+          </div>
           </div>
         </form>
-        <button onClick={!student ? onCreateStudent : onUpdateStudent}>
+        </div>
+        <button 
+        disabled={!firstName || !lastName }
+        className="btn btn-primary" onClick={!student ? onCreateStudent : onUpdateStudent}>
           {!student ? ('Add') : ('Edit')} Student
         </button>
       </div>

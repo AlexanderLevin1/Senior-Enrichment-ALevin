@@ -18,8 +18,6 @@ const StudentList = ({ students }) => {
                                             {student.fullName}
                                             <img className="student-thumbnail" src={student.imageURL} width={100} />
                                         </Link>
-                                        <button className="remove-button" onClick={() => deleteStudent(student)}>
-                                        </button>
                                     </div>
                                 </div>
                             </ul>

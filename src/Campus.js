@@ -20,14 +20,17 @@ class Campus extends Component {
         const { onDeleteCampus } = this;
         return (
             <div className="container-fluid">
-            <div>
-                <h2 className="text-center">Campus - {campus && campus.name}</h2>
-                <img className="image-center" src={campus && campus.imageURL} />
+            <div className="row jumbotron">
+                <h2 className="text-center">{campus && campus.name}</h2>
+                <img className="image-center" src={campus && campus.imageURL} width="100%" />
+                <div>
+                <p>{campus && campus.description}</p>
+                </div>
             </div>
-                <p><Link className="btn btn-default" to={`/newStudent`}>Add Student</Link></p>
-                <p><Link className="btn btn-default" to={`/campuses/${campus && campus.id}/edit`}>Edit Campus</Link></p>
-                <button className="btn btn-default" onClick={onDeleteCampus}>Delete Campus</button>
-                <h4> Current Students </h4>
+                <div><Link className="btn btn-primary btn-success" to={`/newStudent`}>Add Student</Link></div>
+                <div><Link className="btn btn-primary btn-info" to={`/campuses/${campus && campus.id}/edit`}>Edit Campus</Link></div>
+                <button className="btn btn-primary btn-danger" to={`/campuses`} onClick={onDeleteCampus}>Delete Campus</button>
+                <h4> Current Students:</h4>
                 <StudentList campus_id={campus_id} />
             </div>
         )

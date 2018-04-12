@@ -4258,10 +4258,7 @@ var StudentList = function StudentList(_ref) {
                                 { to: '/students/' + student.id },
                                 student.fullName,
                                 _react2.default.createElement('img', { className: 'student-thumbnail', src: student.imageURL, width: 100 })
-                            ),
-                            _react2.default.createElement('button', { className: 'remove-button', onClick: function onClick() {
-                                    return (0, _store.deleteStudent)(student);
-                                } })
+                            )
                         )
                     )
                 );
@@ -28821,22 +28818,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Home = function Home() {
     return _react2.default.createElement(
-        "div",
-        { className: "container-fluid" },
+        'div',
+        { className: 'jumbotron' },
         _react2.default.createElement(
-            "title",
+            'title',
             null,
-            "Home Page"
+            'Home Page'
         ),
         _react2.default.createElement(
-            "h1",
-            null,
-            " Margaret Hamilton Interplanetary Academy of Javascript "
+            'h1',
+            { style: { textAlign: 'center' } },
+            ' Margaret Hamilton Interplanetary Academy of Javascript '
         ),
         _react2.default.createElement(
-            "h2",
-            null,
-            " Welcome to our Wonderful World of Jiving Javascript! "
+            'h2',
+            { style: { textAlign: 'center' } },
+            ' Welcome to our Wonderful World of Jiving Javascript! '
         )
     );
 };
@@ -28909,42 +28906,50 @@ var Campus = function (_Component) {
                 { className: 'container-fluid' },
                 _react2.default.createElement(
                     'div',
-                    null,
+                    { className: 'row jumbotron' },
                     _react2.default.createElement(
                         'h2',
                         { className: 'text-center' },
-                        'Campus - ',
                         campus && campus.name
                     ),
-                    _react2.default.createElement('img', { className: 'image-center', src: campus && campus.imageURL })
+                    _react2.default.createElement('img', { className: 'image-center', src: campus && campus.imageURL, width: '100%' }),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            campus && campus.description
+                        )
+                    )
                 ),
                 _react2.default.createElement(
-                    'p',
+                    'div',
                     null,
                     _react2.default.createElement(
                         _reactRouterDom.Link,
-                        { className: 'btn btn-default', to: '/newStudent' },
+                        { className: 'btn btn-primary btn-success', to: '/newStudent' },
                         'Add Student'
                     )
                 ),
                 _react2.default.createElement(
-                    'p',
+                    'div',
                     null,
                     _react2.default.createElement(
                         _reactRouterDom.Link,
-                        { className: 'btn btn-default', to: '/campuses/' + (campus && campus.id) + '/edit' },
+                        { className: 'btn btn-primary btn-info', to: '/campuses/' + (campus && campus.id) + '/edit' },
                         'Edit Campus'
                     )
                 ),
                 _react2.default.createElement(
                     'button',
-                    { className: 'btn btn-default', onClick: onDeleteCampus },
+                    { className: 'btn btn-primary btn-danger', to: '/campuses', onClick: onDeleteCampus },
                     'Delete Campus'
                 ),
                 _react2.default.createElement(
                     'h4',
                     null,
-                    ' Current Students '
+                    ' Current Students:'
                 ),
                 _react2.default.createElement(_StudentList2.default, { campus_id: campus_id })
             );
@@ -29023,12 +29028,14 @@ var Campuses = function Campuses(_ref) {
       _react2.default.createElement(
         'h1',
         null,
-        ' Campuses '
+        ' Campuses: ',
+        campuses.length,
+        ' '
       )
     ),
     _react2.default.createElement(
       'button',
-      null,
+      { className: 'btn btn-success' },
       _react2.default.createElement(
         _reactRouterDom.Link,
         { to: '/campuses/create' },
@@ -29037,30 +29044,39 @@ var Campuses = function Campuses(_ref) {
     ),
     _react2.default.createElement(
       'div',
-      { className: 'row' },
-      campuses.map(function (campus) {
+      { className: 'card-group jumbotron' },
+      campuses.length ? campuses.map(function (campus) {
         return _react2.default.createElement(
           'div',
-          { key: campus.id, className: 'col-xs-5' },
+          { key: campus.id, className: 'card' },
           _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/campuses/' + campus.id },
+            'div',
+            { className: 'card-body' },
             _react2.default.createElement(
-              'h3',
-              { className: 'campus-name' },
-              campus.name
+              _reactRouterDom.Link,
+              { to: '/campuses/' + campus.id },
+              _react2.default.createElement(
+                'h3',
+                { className: 'campus-name' },
+                campus.name
+              )
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/campuses/' + campus.id },
+              _react2.default.createElement('img', { className: 'campus-thumbnail', src: campus.imageURL, width: '30%', height: '20%' })
             )
-          ),
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/campuses/' + campus.id },
-            _react2.default.createElement('img', { className: 'campus-thumbnail', src: campus.imageURL, width: '75%', height: '75' })
-          ),
-          _react2.default.createElement('button', { className: 'remove-button', onClick: function onClick() {
-              return (0, _store.deleteCampus)(campus);
-            } })
+          )
         );
-      })
+      }) : _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h3',
+          { className: 'text-center' },
+          ' Please Add a Campus '
+        )
+      )
     )
   );
 };
@@ -29201,29 +29217,41 @@ var CampusCreate = function (_Component) {
                             'div',
                             { className: 'form-row' },
                             _react2.default.createElement(
-                                'label',
-                                null,
-                                'Name:',
-                                _react2.default.createElement('input', { name: 'name', onChange: onChangeForm, value: name })
+                                'div',
+                                { className: 'form-group col-md-6' },
+                                _react2.default.createElement(
+                                    'label',
+                                    null,
+                                    'Name:'
+                                ),
+                                _react2.default.createElement('input', { className: 'form-control', name: 'name', onChange: onChangeForm, value: name })
                             ),
                             _react2.default.createElement(
-                                'label',
-                                null,
-                                'imageURL:'
+                                'div',
+                                { className: 'form-group col-md-6' },
+                                _react2.default.createElement(
+                                    'label',
+                                    null,
+                                    'imageURL:'
+                                ),
+                                _react2.default.createElement('input', { className: 'form-control', name: 'imageURL', onChange: onChangeForm, value: imageURL })
                             ),
-                            _react2.default.createElement('input', { name: 'imageURL', onChange: onChangeForm, value: imageURL }),
                             _react2.default.createElement(
-                                'label',
-                                null,
-                                'Description:'
-                            ),
-                            _react2.default.createElement('input', { name: 'description', onChange: onChangeForm, value: description, width: 300, height: 300 })
+                                'div',
+                                { className: 'form-group col-md-6' },
+                                _react2.default.createElement(
+                                    'label',
+                                    null,
+                                    'Description:'
+                                ),
+                                _react2.default.createElement('input', { className: 'form-control', name: 'description', onChange: onChangeForm, value: description, width: 300, height: 300 })
+                            )
                         )
                     )
                 ),
                 _react2.default.createElement(
                     'button',
-                    { onClick: !campus ? onCreateCampus : onUpdateCampus },
+                    { className: 'btn btn-primary btn-succss', onClick: !campus ? onCreateCampus : onUpdateCampus },
                     !campus ? 'Add' : 'Edit',
                     ' Campus'
                 )
@@ -29335,14 +29363,18 @@ var Student = function (_Component) {
                     null,
                     _react2.default.createElement(
                         _reactRouterDom.Link,
-                        { className: 'btn btn-default', to: '/students/' + (student && student.id) + '/edit' },
+                        { className: 'btn btn-primary btn-info', to: '/students/' + (student && student.id) + '/edit' },
                         'Edit Student'
                     )
                 ),
                 _react2.default.createElement(
-                    'button',
-                    { className: 'btn btn-default', onClick: onDeleteStudent },
-                    ' Delete Student '
+                    'p',
+                    null,
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { className: 'btn btn-danger', onClick: onDeleteStudent },
+                        ' Delete Student '
+                    )
                 )
             );
         }
@@ -29402,20 +29434,26 @@ var _StudentList2 = _interopRequireDefault(_StudentList);
 
 var _reactRouterDom = __webpack_require__(9);
 
+var _store = __webpack_require__(7);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Students = function Students() {
+var Students = function Students(_ref) {
+    var students = _ref.students;
+
     return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
             'h1',
             null,
-            ' Students '
+            ' Students: ',
+            students.length,
+            ' '
         ),
         _react2.default.createElement(
             'button',
-            { className: 'btn btn-defaul btnd-xs' },
+            { className: 'btn btn-primary btn-success' },
             _react2.default.createElement(
                 _reactRouterDom.Link,
                 { to: '/newStudent' },
@@ -29426,7 +29464,26 @@ var Students = function Students() {
     );
 };
 
-exports.default = Students;
+var mapStateToProps = function mapStateToProps(_ref2) {
+    var students = _ref2.students;
+
+    return {
+        students: students || []
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        updateStudent: function updateStudent(student) {
+            return dispatch((0, _store.updateStudent)(student));
+        },
+        deleteStudent: function deleteStudent(student) {
+            return dispatch((0, _store.deleteStudent)(student));
+        }
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Students);
 
 /***/ }),
 /* 147 */
@@ -29493,7 +29550,9 @@ var StudentCreate = function (_Component) {
   }, {
     key: 'onCreateStudent',
     value: function onCreateStudent(ev) {
-      var student = this.props.student;
+      var _props = this.props,
+          student = _props.student,
+          campus = _props.campus;
       var _state = this.state,
           firstName = _state.firstName,
           lastName = _state.lastName,
@@ -29552,60 +29611,85 @@ var StudentCreate = function (_Component) {
           imageURL = _state3.imageURL,
           gpa = _state3.gpa;
 
-      console.log('***' + firstName);
       return _react2.default.createElement(
         'div',
-        { className: 'default-margins' },
+        { className: 'card text-center' },
         _react2.default.createElement(
-          'h2',
-          null,
-          !student ? 'Add Student' : 'Edit ' + student.fullName
+          'div',
+          { className: 'card-header' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            !student ? 'Add Student' : 'Edit ' + student.fullName
+          )
         ),
         _react2.default.createElement(
-          'form',
-          { className: 'margin-top-10', display: 'table' },
+          'div',
+          { className: 'card-body' },
           _react2.default.createElement(
-            'div',
+            'form',
             null,
             _react2.default.createElement(
-              'label',
-              { display: 'table-cell' },
-              'firstName:'
-            ),
-            _react2.default.createElement('input', { name: 'firstName', onChange: onChangeForm, value: firstName, display: 'table' })
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'label',
-              { display: 'table-cell' },
-              'lastName:'
-            ),
-            _react2.default.createElement('input', { name: 'lastName', onChange: onChangeForm, value: lastName, display: 'table' })
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'email:',
-            _react2.default.createElement('input', { name: 'email', onChange: onChangeForm, value: email })
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'imageURL:',
-            _react2.default.createElement('input', { name: 'imageURL', onChange: onChangeForm, value: imageURL })
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'gpa:',
-            _react2.default.createElement('input', { name: 'gpa', onChange: onChangeForm, value: gpa })
+              'div',
+              { className: 'form-row' },
+              _react2.default.createElement(
+                'div',
+                { className: 'form-group col-md-6' },
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'firstName:'
+                ),
+                _react2.default.createElement('input', { className: 'form-control', name: 'firstName', onChange: onChangeForm, value: firstName })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'form-group col-md-6' },
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'lastName:'
+                ),
+                _react2.default.createElement('input', { className: 'form-control', name: 'lastName', onChange: onChangeForm, value: lastName })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'form-group cold-m-6' },
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'email:'
+                ),
+                _react2.default.createElement('input', { className: 'form-control', name: 'email', onChange: onChangeForm, value: email })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'form-group col-md-6' },
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'imageURL:'
+                ),
+                _react2.default.createElement('input', { className: 'form-control', name: 'imageURL', onChange: onChangeForm, value: imageURL })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'form-group col-md-6' },
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'gpa:'
+                ),
+                _react2.default.createElement('input', { className: 'form-control', name: 'gpa', onChange: onChangeForm, value: gpa })
+              )
+            )
           )
         ),
         _react2.default.createElement(
           'button',
-          { onClick: !student ? onCreateStudent : onUpdateStudent },
+          {
+            disabled: !firstName || !lastName,
+            className: 'btn btn-primary', onClick: !student ? onCreateStudent : onUpdateStudent },
           !student ? 'Add' : 'Edit',
           ' Student'
         )
