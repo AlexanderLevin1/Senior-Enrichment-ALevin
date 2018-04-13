@@ -15,18 +15,25 @@ class StudentForm extends Component {
       inputError: {},
       inputEdited: {}
     }
+
+      // -------------------- VALIDATORS ---------------------
     this.validators = {
       email: value => {
-        const validEmail = /\S+@\S+\.\S+/;
-        if (!validEmail.test(value)) {
+        const emailFormat = /\S+@\S+\.\S+/;
+        if (!emailFormat.test(value)) {
           return `e-mail must be valid e-mail format with @`;
         }
       }
     };
+
+  // -------------------- BIND METHODS THIS ---------------------
+
     this.onChangeForm = this.onChangeForm.bind(this)
     this.onCreateStudent = this.onCreateStudent.bind(this)
     this.onUpdateStudent = this.onUpdateStudent.bind(this);
   }
+
+    // -------------------- METHODS ---------------------
 
   onChangeForm(ev) {
     const inputName = ev.target.name;
@@ -89,6 +96,8 @@ class StudentForm extends Component {
       })
     }
   };
+
+  // -------------------- RENDER ---------------------
 
   render() {
     const { onCreateStudent, onChangeForm, onUpdateStudent } = this;
@@ -158,31 +167,3 @@ const mapDispatchToProps = (dispatch, { history }) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentForm);
 
-{/*
-<div className="card-body">
-        <form>
-        <div className="form-row">
-          <div className="form-group col-md-6">
-            <label>firstName:</label>
-            <input className="form-control" name="firstName" onChange={onChangeForm} value={firstName} />
-          </div>
-          <div className="form-group col-md-6">
-            <label>lastName:</label>
-            <input className="form-control" name="lastName" onChange={onChangeForm} value={lastName} />
-          </div>
-          <div className="form-group cold-m-6">
-          <label>email:</label>
-          <input className="form-control" name="email" onChange={onChangeForm} value={email} />
-          </div>
-          <div className="form-group col-md-6">
-          <label>imageURL:</label>
-          <input className="form-control" name="imageURL" onChange={onChangeForm} value={imageURL} />
-          </div>
-          <div className="form-group col-md-6">
-          <label>gpa:</label>
-          <input className="form-control" name="gpa" onChange={onChangeForm} value={gpa} />
-          </div>
-          </div>
-        </form>
-        </div>
-*/}

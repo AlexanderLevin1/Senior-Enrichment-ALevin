@@ -10,10 +10,15 @@ class CampusForm extends Component {
             imageURL: !campus ? '' : campus.imageURL,
             description: !campus ? '' : campus.description
         };
+
+  // -------------------- BIND METHOD THIS ---------------------
+
         this.onChangeForm = this.onChangeForm.bind(this);
         this.onCreateCampus = this.onCreateCampus.bind(this);
         this.onUpdateCampus = this.onUpdateCampus.bind(this);
     };
+
+      // -------------------- METHODS ---------------------
 
     onChangeForm(ev) {
         const inputName = ev.target.name;
@@ -39,6 +44,7 @@ class CampusForm extends Component {
         this.props.updateCampus({ name, imageURL, description }, campus.id);
     };
 
+      // -------------------- RENDER ---------------------
 
     render() {
         const { onCreateCampus, onChangeForm, onUpdateCampus } = this;
@@ -84,17 +90,3 @@ const mapDispatchToProps = (dispatch, { history }) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CampusForm);
-
-
-
-
-{/*
-  componentWillReceiveProps(nextProps) {
-        const { campus } = nextProps;
-        this.setState({
-          name: !campus ? '' : campus.name,
-          imageURL: !campus ? '' : campus.imageURL,
-          description: !campus ? '' : campus.description
-        });
-      }
-    */}

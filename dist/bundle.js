@@ -29138,6 +29138,9 @@ var CampusForm = function (_Component) {
             imageURL: !campus ? '' : campus.imageURL,
             description: !campus ? '' : campus.description
         };
+
+        // -------------------- BIND METHOD THIS ---------------------
+
         _this.onChangeForm = _this.onChangeForm.bind(_this);
         _this.onCreateCampus = _this.onCreateCampus.bind(_this);
         _this.onUpdateCampus = _this.onUpdateCampus.bind(_this);
@@ -29146,6 +29149,10 @@ var CampusForm = function (_Component) {
 
     _createClass(CampusForm, [{
         key: 'onChangeForm',
+
+
+        // -------------------- METHODS ---------------------
+
         value: function onChangeForm(ev) {
             var inputName = ev.target.name;
             var inputValue = ev.target.value;
@@ -29181,6 +29188,10 @@ var CampusForm = function (_Component) {
         }
     }, {
         key: 'render',
+
+
+        // -------------------- RENDER ---------------------
+
         value: function render() {
             var _this2 = this;
 
@@ -29265,18 +29276,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref4) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CampusForm);
-
-
-{/*
-     componentWillReceiveProps(nextProps) {
-           const { campus } = nextProps;
-           this.setState({
-             name: !campus ? '' : campus.name,
-             imageURL: !campus ? '' : campus.imageURL,
-             description: !campus ? '' : campus.description
-           });
-         }
-       */}
 
 /***/ }),
 /* 144 */
@@ -29610,20 +29609,26 @@ var StudentForm = function (_Component) {
       gpa: !student ? 0 : student.gpa * 1,
       inputError: {},
       inputEdited: {}
-    };
-    _this.validators = {
+
+      // -------------------- VALIDATORS ---------------------
+    };_this.validators = {
       email: function email(value) {
-        var validEmail = /\S+@\S+\.\S+/;
-        if (!validEmail.test(value)) {
-          return 'Student\'s e-mail must be a valid address.';
+        var emailFormat = /\S+@\S+\.\S+/;
+        if (!emailFormat.test(value)) {
+          return 'e-mail must be valid e-mail format with @';
         }
       }
     };
+
+    // -------------------- BIND METHODS THIS ---------------------
+
     _this.onChangeForm = _this.onChangeForm.bind(_this);
     _this.onCreateStudent = _this.onCreateStudent.bind(_this);
     _this.onUpdateStudent = _this.onUpdateStudent.bind(_this);
     return _this;
   }
+
+  // -------------------- METHODS ---------------------
 
   _createClass(StudentForm, [{
     key: 'onChangeForm',
@@ -29714,6 +29719,10 @@ var StudentForm = function (_Component) {
     }
   }, {
     key: 'render',
+
+
+    // -------------------- RENDER ---------------------
+
     value: function render() {
       var _this4 = this;
 
@@ -29775,7 +29784,7 @@ var StudentForm = function (_Component) {
           return inputEdited[field] && !_this4.state[field].length && _react2.default.createElement(
             'div',
             { key: field, className: 'alert alert-danger' },
-            'Student\'s ' + fieldsName[field].toLowerCase() + ' must be entered.'
+            'Please input Student\'s ' + fieldsName[field].toLowerCase()
           );
         }),
         !inputEdited.email && inputError.email && _react2.default.createElement(
@@ -29786,7 +29795,7 @@ var StudentForm = function (_Component) {
         inputEdited.gpa && (gpa < 0 || gpa > 4) && _react2.default.createElement(
           'div',
           { className: 'alert alert-danger' },
-          'Student\'s GPA must be between 0.0 and 4.0.'
+          'GPA must be a number between 0 and 4'
         )
       );
     }
@@ -29836,36 +29845,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref3) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(StudentForm);
-
-
-{/*
-  <div className="card-body">
-         <form>
-         <div className="form-row">
-           <div className="form-group col-md-6">
-             <label>firstName:</label>
-             <input className="form-control" name="firstName" onChange={onChangeForm} value={firstName} />
-           </div>
-           <div className="form-group col-md-6">
-             <label>lastName:</label>
-             <input className="form-control" name="lastName" onChange={onChangeForm} value={lastName} />
-           </div>
-           <div className="form-group cold-m-6">
-           <label>email:</label>
-           <input className="form-control" name="email" onChange={onChangeForm} value={email} />
-           </div>
-           <div className="form-group col-md-6">
-           <label>imageURL:</label>
-           <input className="form-control" name="imageURL" onChange={onChangeForm} value={imageURL} />
-           </div>
-           <div className="form-group col-md-6">
-           <label>gpa:</label>
-           <input className="form-control" name="gpa" onChange={onChangeForm} value={gpa} />
-           </div>
-           </div>
-         </form>
-         </div>
-  */}
 
 /***/ })
 /******/ ]);
