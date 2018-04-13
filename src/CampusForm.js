@@ -44,28 +44,24 @@ class CampusForm extends Component {
         const { onCreateCampus, onChangeForm, onUpdateCampus } = this;
         const { campus } = this.props;
         const { name, imageURL, description } = this.state;
+        const fields = { name: 'Name', imageURL: 'imageURL', description: 'Description'};
         return (
             <div className="default-margins">
                 <h2>{!campus ? ('Add Campus') : (`Edit ${campus.name}`)}</h2>
                 <div>
-                    <form className="margin-top-10">
-                        <div className="form-row">
-                            <div className="form-group col-md-6">
-                                <label>Name:</label>
-                                <input className="form-control" name="name" onChange={onChangeForm} value={name} />
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label>imageURL:</label>
-                                <input className="form-control" name="imageURL" onChange={onChangeForm} value={imageURL} />
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label>Description:</label>
-                                <input className="form-control" name="description" onChange={onChangeForm} value={description} width={300} height={300} />
-                            </div>
-                        </div>
-                    </form>
+                <form>
+                {
+                  Object.keys(fields).map(field => (
+                    <div key={field} className="form-group col-md-6">
+                      <label>{fields[field]}</label>
+                      <input className="form-control" name={`${field}`} onChange={onChangeForm} value={this.state[field]} />
+                    </div>
+                ))
+                }
+              </form>
                 </div>
-                <button className="btn btn-primary btn-succss" onClick={!campus ? onCreateCampus : onUpdateCampus}>
+                <button disabled={!name || !description }
+                className="btn btn-primary btn-succss" onClick={!campus ? onCreateCampus : onUpdateCampus}>
                     {!campus ? ('Add') : ('Edit')} Campus
                 </button>
             </div>
@@ -73,9 +69,10 @@ class CampusForm extends Component {
     }
 };
 
-const mapStateToProps = ({ campuses }, { id }) => {
+const mapStateToProps = ({ campuses }, { id, history }) => {
     return {
-        campus: campuses && campuses.find(campus => campus.id === id)
+        campus: campuses && campuses.find(campus => campus.id === id),
+        history
     };
 };
 
@@ -87,3 +84,17 @@ const mapDispatchToProps = (dispatch, { history }) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CampusForm);
+
+
+
+
+{/*
+  componentWillReceiveProps(nextProps) {
+        const { campus } = nextProps;
+        this.setState({
+          name: !campus ? '' : campus.name,
+          imageURL: !campus ? '' : campus.imageURL,
+          description: !campus ? '' : campus.description
+        });
+      }
+    */}

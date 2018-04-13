@@ -23,10 +23,10 @@ class Student extends Component {
     }
 
     onUpdateStudent(ev) {
-        const { campus_id } = this.state;
+        const { campusId } = this.state;
         const { student, campus } = this.props;
         ev.preventDefault();
-        this.props.updateStudent({ campus_id: campus_id * 1 }, student.id, campus);
+        this.props.updateStudent({ campusId: campusId * 1 }, student.id, campus);
     }
     onDeleteStudent(ev) {
         ev.preventDefault();
@@ -37,6 +37,7 @@ class Student extends Component {
         const { campus_id } = this.state;
         const { student, campuses, campus } = this.props;
         const { onChangeForm, onUpdateStudent, onDeleteStudent } = this;
+        
         return (
             <div className="student">
                 <div>
@@ -73,7 +74,7 @@ class Student extends Component {
 
 const mapStateToProps = ({ students, campuses }, { id }) => {
     const student = students.find(_student => _student.id === id);
-    const campus = student && campuses.find(_campus => _campus.id === student.campus_id);
+    const campus = student && campuses.find(_campus => _campus.id === student.campusId);
     return { student, campuses, campus };
 };
 

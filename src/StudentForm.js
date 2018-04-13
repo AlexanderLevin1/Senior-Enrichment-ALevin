@@ -88,7 +88,7 @@ class StudentForm extends Component {
         gpa: nextProps.student.gpa || 0
       })
     }
-  }
+  };
 
   render() {
     const { onCreateStudent, onChangeForm, onUpdateStudent } = this;

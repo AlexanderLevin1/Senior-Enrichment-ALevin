@@ -30,14 +30,14 @@ class Campus extends Component {
                 <div><Link className="btn btn-primary btn-success" to={`/newStudent`}>Add Student</Link></div>
                 <div><Link className="btn btn-primary btn-info" to={`/campuses/${campus && campus.id}/edit`}>Edit Campus</Link></div>
                 <button className="btn btn-primary btn-danger" to={`/campuses`} onClick={onDeleteCampus}>Delete Campus</button>
-                <h4> Current Students:</h4>
+                <h4> Current Students: </h4>
                 <StudentList campus_id={campus_id} />
             </div>
         )
     }
 };
 
-const mapStateToProps = ({ campuses }, { id }) => {
+const mapStateToProps = ({ campuses}, { id }) => {
     return {
         campus: campuses.find(campus => campus.id === id), campus_id: id
     };

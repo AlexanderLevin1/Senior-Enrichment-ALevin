@@ -24784,8 +24784,7 @@ var App = function (_Component) {
                         _react2.default.createElement(_reactRouterDom.Route, (_React$createElement = { exact: true, path: '/' }, _defineProperty(_React$createElement, 'exact', true), _defineProperty(_React$createElement, 'component', _Home2.default), _React$createElement)),
                         _react2.default.createElement(_reactRouterDom.Route, (_React$createElement2 = { exact: true, path: '/campuses' }, _defineProperty(_React$createElement2, 'exact', true), _defineProperty(_React$createElement2, 'component', _Campuses2.default), _React$createElement2)),
                         _react2.default.createElement(_reactRouterDom.Route, (_React$createElement3 = { exact: true, path: '/campuses/create' }, _defineProperty(_React$createElement3, 'exact', true), _defineProperty(_React$createElement3, 'render', function render(_ref2) {
-                            var match = _ref2.match,
-                                history = _ref2.history;
+                            var history = _ref2.history;
                             return _react2.default.createElement(_CampusForm2.default, { history: history });
                         }), _React$createElement3)),
                         _react2.default.createElement(_reactRouterDom.Route, { path: '/campuses/:id', exact: true, render: function render(_ref3) {
@@ -28933,7 +28932,7 @@ var Campus = function (_Component) {
                 _react2.default.createElement(
                     'h4',
                     null,
-                    ' Current Students:'
+                    ' Current Students: '
                 ),
                 _react2.default.createElement(_StudentList2.default, { campus_id: campus_id })
             );
@@ -29183,6 +29182,8 @@ var CampusForm = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var onCreateCampus = this.onCreateCampus,
                 onChangeForm = this.onChangeForm,
                 onUpdateCampus = this.onUpdateCampus;
@@ -29192,6 +29193,7 @@ var CampusForm = function (_Component) {
                 imageURL = _state3.imageURL,
                 description = _state3.description;
 
+            var fields = { name: 'Name', imageURL: 'imageURL', description: 'Description' };
             return _react2.default.createElement(
                 'div',
                 { className: 'default-margins' },
@@ -29205,46 +29207,25 @@ var CampusForm = function (_Component) {
                     null,
                     _react2.default.createElement(
                         'form',
-                        { className: 'margin-top-10' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-row' },
-                            _react2.default.createElement(
+                        null,
+                        Object.keys(fields).map(function (field) {
+                            return _react2.default.createElement(
                                 'div',
-                                { className: 'form-group col-md-6' },
+                                { key: field, className: 'form-group col-md-6' },
                                 _react2.default.createElement(
                                     'label',
                                     null,
-                                    'Name:'
+                                    fields[field]
                                 ),
-                                _react2.default.createElement('input', { className: 'form-control', name: 'name', onChange: onChangeForm, value: name })
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'form-group col-md-6' },
-                                _react2.default.createElement(
-                                    'label',
-                                    null,
-                                    'imageURL:'
-                                ),
-                                _react2.default.createElement('input', { className: 'form-control', name: 'imageURL', onChange: onChangeForm, value: imageURL })
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'form-group col-md-6' },
-                                _react2.default.createElement(
-                                    'label',
-                                    null,
-                                    'Description:'
-                                ),
-                                _react2.default.createElement('input', { className: 'form-control', name: 'description', onChange: onChangeForm, value: description, width: 300, height: 300 })
-                            )
-                        )
+                                _react2.default.createElement('input', { className: 'form-control', name: '' + field, onChange: onChangeForm, value: _this2.state[field] })
+                            );
+                        })
                     )
                 ),
                 _react2.default.createElement(
                     'button',
-                    { className: 'btn btn-primary btn-succss', onClick: !campus ? onCreateCampus : onUpdateCampus },
+                    { disabled: !name || !description,
+                        className: 'btn btn-primary btn-succss', onClick: !campus ? onCreateCampus : onUpdateCampus },
                     !campus ? 'Add' : 'Edit',
                     ' Campus'
                 )
@@ -29259,12 +29240,14 @@ var CampusForm = function (_Component) {
 
 var mapStateToProps = function mapStateToProps(_ref2, _ref3) {
     var campuses = _ref2.campuses;
-    var id = _ref3.id;
+    var id = _ref3.id,
+        history = _ref3.history;
 
     return {
         campus: campuses && campuses.find(function (campus) {
             return campus.id === id;
-        })
+        }),
+        history: history
     };
 };
 
@@ -29282,6 +29265,18 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref4) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CampusForm);
+
+
+{/*
+     componentWillReceiveProps(nextProps) {
+           const { campus } = nextProps;
+           this.setState({
+             name: !campus ? '' : campus.name,
+             imageURL: !campus ? '' : campus.imageURL,
+             description: !campus ? '' : campus.description
+           });
+         }
+       */}
 
 /***/ }),
 /* 144 */
@@ -29344,13 +29339,13 @@ var Student = function (_Component) {
     }, {
         key: 'onUpdateStudent',
         value: function onUpdateStudent(ev) {
-            var campus_id = this.state.campus_id;
+            var campusId = this.state.campusId;
             var _props = this.props,
                 student = _props.student,
                 campus = _props.campus;
 
             ev.preventDefault();
-            this.props.updateStudent({ campus_id: campus_id * 1 }, student.id, campus);
+            this.props.updateStudent({ campusId: campusId * 1 }, student.id, campus);
         }
     }, {
         key: 'onDeleteStudent',
@@ -29369,6 +29364,7 @@ var Student = function (_Component) {
             var onChangeForm = this.onChangeForm,
                 onUpdateStudent = this.onUpdateStudent,
                 onDeleteStudent = this.onDeleteStudent;
+
 
             return _react2.default.createElement(
                 'div',
@@ -29471,7 +29467,7 @@ var mapStateToProps = function mapStateToProps(_ref, _ref2) {
         return _student.id === id;
     });
     var campus = student && campuses.find(function (_campus) {
-        return _campus.id === student.campus_id;
+        return _campus.id === student.campusId;
     });
     return { student: student, campuses: campuses, campus: campus };
 };
