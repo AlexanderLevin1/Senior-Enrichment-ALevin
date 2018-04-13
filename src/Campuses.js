@@ -5,8 +5,7 @@ import { updateCampus, deleteCampus } from './store';
 
 const Campuses = ({ campuses }) => {
   return (
-
-    <div className="container">
+    <div className="container-fluid">
       <div>
         <title>List of Campuses</title>
       </div>
@@ -15,25 +14,29 @@ const Campuses = ({ campuses }) => {
       </div>
       <button className="btn btn-success"><Link to={`/campuses/create`}>Add Campus</Link></button>
       <div className="card-group jumbotron">
-        {campuses.length ? (
-          campuses.map(campus => {
-            return (
-              <div key={campus.id} className="card">
-                <div className="card-body">
-                  <Link to={`/campuses/${campus.id}`}>
-                    <h3 className="campus-name">{campus.name}</h3>
-                  </Link>
-                  <Link to={`/campuses/${campus.id}`}>
-                    <img className="campus-thumbnail" src={campus.imageURL} width="30%" height="20%" />
-                  </Link>
-                </div>
-              </div>)
-          })) : (
-            <div>
-              <h3 className="text-center"> Please Add a Campus </h3>
-            </div>
-          )
-        }
+        <ul>
+          {
+            campuses && campuses.map(campus => {
+              return (
+                <ul key={campus.id}>
+                  <div className="row">
+                    <div className="thumbnail" width={350}>
+                      <Link to={`/campuses/${campus.id}`}>
+                        <h3>{campus.name}</h3>
+                      </Link>
+                      <Link to={`/campuses/${campus.id}`}>
+                        <img className="campus-thumbnail" src={campus.imageURL} width={200} />
+                      </Link>
+                    </div>
+                  </div>
+                </ul>
+              )
+            })
+          }
+        </ul>
+        <div>
+          {!campuses.length && <h3 className="text-center"> Please Add a Campus </h3>}
+        </div>
       </div>
     </div>
   )

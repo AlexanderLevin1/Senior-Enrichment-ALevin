@@ -2,7 +2,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import axios from 'axios';
 import thunk from 'redux-thunk';
-import logger from 'redux-logger';
+
 
 // -------- ACTIONS ---------------
 
@@ -134,7 +134,7 @@ const updateCampus = (campus, id, history) => {
     };
 };
 
-const updateStudent = (student, id, history) => {
+const updateStudent = (student, id) => {
     return (dispatch) => {
         return axios.put(`/api/students/${id}`, student)
             .then(result => result.data)
@@ -142,9 +142,6 @@ const updateStudent = (student, id, history) => {
                 type: UPDATE_STUDENT,
                 student
             }))
-            .then(action => {
-                history.push(`/students/${action.student.id}`);
-            });
     };
 };
 
@@ -176,7 +173,7 @@ const deleteStudent = (student, history) => {
     }
 };
 
-const store = createStore(reducer, applyMiddleware(thunk, logger));
+const store = createStore(reducer, applyMiddleware(thunk));
 
 export default store;
 export { loadCampuses, loadStudents, createCampus, createStudent, updateCampus, updateStudent, deleteCampus, deleteStudent }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createCampus, updateCampus } from './store';
 
-class CampusCreate extends Component {
+class CampusForm extends Component {
     constructor({ campus }) {
         super();
         this.state = {
@@ -86,4 +86,4 @@ const mapDispatchToProps = (dispatch, { history }) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CampusCreate);
+export default connect(mapStateToProps, mapDispatchToProps)(CampusForm);

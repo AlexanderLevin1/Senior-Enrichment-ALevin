@@ -1,0 +1,17 @@
+##### BUGS #####
+-- Campus not validating
+-- Students' campus not updating on edit Students
+
+
+##### COMPONENTS #####
+-- Add more validators
+-- Add more error handling
+-- Turn students and campuses into cards in separate COMPONENTS (pulled into StudentList etc.)
+-- Include more detail on student and campus cards, e.g. student gpa
+
+
+##### FEATURES #####
+-- Sort students by gpa or alphabetical
+-- Add Subjects model, students can register
+    -- gpa based on past gpa of past subject gpa's
+

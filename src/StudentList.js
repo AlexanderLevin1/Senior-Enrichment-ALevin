@@ -10,9 +10,8 @@ const StudentList = ({ students }) => {
                 {
                     students && students.map(student => {
                         return (
-
                             <ul key={student.id}>
-                                <div className="row" className="col-xs-4">
+                                <div className="col-xs-4">
                                     <div className="thumbnail" width={300}>
                                         <Link to={`/students/${student.id}`}>
                                             {student.fullName}
