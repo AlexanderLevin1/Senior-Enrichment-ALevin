@@ -19,7 +19,7 @@ class StudentForm extends Component {
       email: value => {
         const validEmail = /\S+@\S+\.\S+/;
         if (!validEmail.test(value)) {
-          return `Student's e-mail must be a valid address.`;
+          return `e-mail must be valid e-mail format with @`;
         }
       }
     };
@@ -121,7 +121,7 @@ class StudentForm extends Component {
           Object.keys(fieldsName).map(field => {
             return inputEdited[field] && !this.state[field].length &&
               <div key={field} className='alert alert-danger'>
-                {`Student's ${fieldsName[field].toLowerCase()} must be entered.`}
+                {`Please input Student's ${fieldsName[field].toLowerCase()}`}
               </div>;
           })
         }
@@ -133,7 +133,7 @@ class StudentForm extends Component {
         {
           inputEdited.gpa && (gpa < 0 || gpa > 4) &&
           (<div className='alert alert-danger'>
-            {`Student's GPA must be between 0.0 and 4.0.`}
+            {`GPA must be a number between 0 and 4`}
           </div>)
         }
       </div>

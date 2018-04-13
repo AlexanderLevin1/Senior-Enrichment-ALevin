@@ -5,6 +5,7 @@
 ##### COMPONENTS #####
 -- Add more validators
 -- Add more error handling
+-- separate / split out store
 -- Turn students and campuses into cards in separate COMPONENTS (pulled into StudentList etc.)
 -- Include more detail on student and campus cards, e.g. student gpa
 
