@@ -37,7 +37,7 @@ class Student extends Component {
         const { campus_id } = this.state;
         const { student, campuses, campus } = this.props;
         const { onChangeForm, onUpdateStudent, onDeleteStudent } = this;
-        
+
         return (
             <div className="student">
                 <div>
@@ -50,6 +50,7 @@ class Student extends Component {
                     <p>E-mail: {student && student.email}</p>
                     <p>GPA: {student && student.gpa}</p>
                     <form>
+{/* -----------------  Not working properly, rendering properly but not updating student's campus -------------- */}
                         <select name='campus_id' onChange={onChangeForm}>
                             <option disabled={campus_id}>- choose -</option>
                             {

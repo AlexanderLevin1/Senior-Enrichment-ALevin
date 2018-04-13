@@ -9,7 +9,6 @@ router.get('/', (req, res, next) => {
 
 
 router.post('/', (req, res, next) => {
-    // if (req.body.imageURL === '') req.body.imageURL ='../vendor/images/emptyImage.png'
     Student.create(req.body)
         .then(student => res.send(student))
         .catch(next);

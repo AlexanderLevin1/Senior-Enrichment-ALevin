@@ -71,13 +71,3 @@ module.exports = {
         Student
     }
 };
-
-// Campus.hasMany(Student, {
-//     onDelete: 'cascade',
-//     hooks: true
-// });
-
-// const precisionRound = (number, precision) => {
-//     var factor = Math.pow(10, precision);
-//     return (Math.round(number * factor) / factor )
-// }
